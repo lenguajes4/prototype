@@ -3,16 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
 
-class GestoresController extends Controller
+class PatentesController extends Controller
 {
-    protected $user = null;
-
-    public function __construct(User $user)
-    {
-        $this->user = $user;
-    }
     /**
      * Display a listing of the resource.
      *
@@ -20,8 +13,7 @@ class GestoresController extends Controller
      */
     public function index()
     {
-        $gestores = $this->user->where('rol_id', 4)->get();
-        return view('gestor.index', compact('gestores'));
+        //
     }
 
     /**
@@ -88,16 +80,5 @@ class GestoresController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    /**
-     * Muestra dashboard para gestores.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function dashboard()
-    {
-        return view('gestor.dashboard');
     }
 }

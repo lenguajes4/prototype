@@ -29,13 +29,32 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Rutas para multas
     Route::resource('multa', 'MultasController');
+    Route::get(
+        'informe/{informe}/multa/add',
+        ['as' => 'multa.create', 'uses' => 'MultasController@create']
+    );
+    Route::get(
+        'informe/{informe_id}/multa/{multa}/edit',
+        ['as' => 'multa.{informe_id}.edit', 'uses' => 'MultasController@edit']
+    );
+    Route::get(
+        'informe/{informe_id}/multa/{multa}/show',
+        ['as' => 'multa.{informe_id}.show', 'uses' => 'MultasController@show']
+    );
 
     // Rutas para gestores
     Route::resource('gestor', 'GestoresController');
-    Route::get('/mis-tramites', ['as' => 'gestor.dashboard', 'uses' => 'GestoresController@dashboard']);
+    Route::get('/mistramites', ['as' => 'gestor.dashboard', 'uses' => 'GestoresController@dashboard']);
     
     // Rutas para consultas
     Route::resource('consultas', 'ConsultasController');
+
+    // Rutas para conceptos
+    Route::resource('concepto', 'ConceptosController');
+    Route::get(
+        'informe/{id}/concepto/agregar',
+        ['as' => 'conceptos.create', 'uses' => 'ConceptosController@create']
+    );
 
     // Rutas para 
     // Route::resource('', 'Controller');

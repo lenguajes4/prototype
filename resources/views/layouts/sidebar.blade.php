@@ -12,28 +12,23 @@
         <li class="header">MENU</li>
         <li class="{{ (Request::is('/'))? 'active' : '' }}">
             <a href="/">
-                <i class="fa fa-home"></i>
-                <span>Inicio</span>
+                <i class="fa fa-home"></i> <span>Inicio</span>
             </a>
         </li>
-        <li class="treeview {{ (Request::is('informe/*'))? 'active' : '' }}">
-            <a href="#"><i class="fa fa-file-text-o"></i> <span>Informes</span>
-                <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                </span>
+        <li class="{{ (Request::is('informe'))? 'active' : '' }}">
+            <a href="{{ route('informe.index') }}">
+                <i class="fa fa-file-text-o"></i> <span>Informes</span>
             </a>
-            <ul class="treeview-menu">
-                <li class="{{ (Request::is('informe/create'))? 'active' : '' }}">
-                    <a href="{{ route('informe.create') }}">
-                        <i class="fa fa-circle-o"></i> Nuevo
-                    </a>
-                </li>
-                <li><a href="#"><i class="fa fa-circle-o"></i> Borrador</a></li>
-                <li><a href="#"><i class="fa fa-circle-o"></i> Publicados</a></li>
-                <li><a href="#"><i class="fa fa-circle-o"></i> Concluidos</a></li>
-            </ul>
         </li>
-        <li><a href="#"><i class="fa fa-user-circle-o"></i> <span>Gestores</span></a></li>
-        <li><a href="#"><i class="fa fa-envelope-o"></i> <span>Consultas</span></a></li>
+        <li class="{{ (Request::is('gestor'))? 'active' : '' }}">
+            <a href="{{ route('gestor.index') }}">
+                <i class="fa fa-user-circle-o"></i> <span>Gestores</span>
+            </a>
+        </li>
+        <li class="{{ (Request::is('consultas'))? 'active' : '' }}">
+            <a href="{{ route('consultas.index') }}">
+                <i class="fa fa-envelope-o"></i> <span>Consultas</span>
+            </a>
+        </li>
     </ul>
 </section>

@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
+use App\Concepto;
 
-class GestoresController extends Controller
+class ConceptosController extends Controller
 {
-    protected $user = null;
-
-    public function __construct(User $user)
+    protected $concepto = null;
+    
+    public function __construct(Concepto $concepto)
     {
-        $this->user = $user;
+        $this->concepto = $concepto;
     }
     /**
      * Display a listing of the resource.
@@ -20,8 +20,7 @@ class GestoresController extends Controller
      */
     public function index()
     {
-        $gestores = $this->user->where('rol_id', 4)->get();
-        return view('gestor.index', compact('gestores'));
+        //
     }
 
     /**
@@ -29,9 +28,9 @@ class GestoresController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        return view('conceptos.create', ['informe_id' => $id]);
     }
 
     /**
@@ -42,7 +41,12 @@ class GestoresController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, $this->concepto->getRules());
+        $this->concepto->create($request->all());
+
+        return redirect()
+            ->route('informe.edit', $request->informe_id)
+            ->with('success', 'Concepto agregado correctamente.');
     }
 
     /**
@@ -53,7 +57,9 @@ class GestoresController extends Controller
      */
     public function show($id)
     {
-        //
+        $concepto = $this->concepto->find($id);
+
+        return view('conceptos.destroy', compact('concepto'));
     }
 
     /**
@@ -64,7 +70,9 @@ class GestoresController extends Controller
      */
     public function edit($id)
     {
-        //
+        $concepto = $this->concepto->find($id);
+
+        return view('conceptos.edit', compact('concepto'));
     }
 
     /**
@@ -76,7 +84,13 @@ class GestoresController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $concepto = $this->concepto->find($id);
+        $concepto->fill($request->all());
+        $concepto->save();
+
+        return redirect()
+            ->route('informe.edit', $concepto->informe_id)
+            ->with('success', 'Conceptos actualizadas correctamente.');
     }
 
     /**
@@ -87,17 +101,12 @@ class GestoresController extends Controller
      */
     public function destroy($id)
     {
-        //
-    }
+        $concepto = $this->concepto->find($id);
+        $informe_id = $concepto->informe_id;
+        $concepto->delete();
 
-    /**
-     * Muestra dashboard para gestores.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function dashboard()
-    {
-        return view('gestor.dashboard');
+        return redirect()
+            ->route('informe.edit', $informe_id)
+            ->with('success', 'Concepto eliminado correctamente.');
     }
 }

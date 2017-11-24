@@ -20,6 +20,7 @@ class CreateUsuariosTable extends Migration
             $table->string('nickname', 50)->unique();
             $table->integer('dni')->unique();
             $table->string('matricula', 50)->nullable()->default(null);
+            $table->string('telefono', 50)->nullable()->default(null);
             $table->string('email')->unique();
             $table->string('password');
             $table->integer('registro_id')->unsigned();

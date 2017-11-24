@@ -10,9 +10,9 @@
     
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/ionicons.min.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/ionicons.min.css') }}" rel="stylesheet"> --}}
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/skin-blue.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/_all-skins.min.css') }}" rel="stylesheet">
 
     @yield('css')
 

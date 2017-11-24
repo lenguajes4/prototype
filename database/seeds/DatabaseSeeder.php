@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call('TiposTramiteTableSeeder');
         $this->call('EstadosTramiteTableSeeder');
         $this->call('TiposVehiculoTableSeeder');
+        $this->call('JurisdiccionesTableSeeder');
 
         Schema::enableForeignKeyConstraints();
     }
