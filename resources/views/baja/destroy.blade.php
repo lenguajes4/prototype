@@ -1,8 +1,8 @@
 {{
     Form::open(
         [
-            'route' => ['multa.destroy', $multa->id],
-            'method' => 'delete'
+            'route' => ['baja.destroy'],
+            'method' => 'post'
         ]
     )
 }}
@@ -11,18 +11,16 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title text-danger"><i class="fa fa-question-circle"></i> Eliminar acta</h4>
+        <h4 class="modal-title text-danger">
+            <i class="fa fa-question-circle"></i> Eliminar solicitud de baja
+        </h4>
     </div>
+    {{ Form::hidden('informe_id', $informe->id) }}
 
     <div class="modal-body">
-        
-        {{ Form::hidden('informe_id', $informe_id) }}
-        
-        <p>Se va a eliminar la siguiente multa del informe:</p>
         <p>
-            <b>Jurisdiccion: </b>{{ $multa->jurisdiccion }}<br>
-            <b>Acta: </b>{{ $multa->acta }}<br>
-            <b>Monto: </b> {{ number_format($multa->monto, 0, ',', '.') }}
+            Se va a eliminar la solicitud de baja del municipio <b>{{ $informe->vehiculo->municipio_baja }}</b>
+            de la provincia de <b>{{ $informe->vehiculo->provincia_baja }}</b>
         </p>
     </div>
 

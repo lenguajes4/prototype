@@ -1,10 +1,10 @@
-@extends('multas.form')
+@extends('patentes.form')
 
 @section('open-form')
     {{
         Form::open(
             [
-                'route' => ['multa.update', $multa->id],
+                'route' => ['patente.update', $patente->id],
                 'method' => 'put'
             ]
         )
@@ -14,7 +14,7 @@
 @section('style', 'bg-warning')
 
 @section('title')
-    <h4 class="modal-title text-warning">Modificar infracción</h4>
+    <h4 class="modal-title text-warning">Modificar periodos de patente</h4>
 @stop
 
 @section('submit-form')

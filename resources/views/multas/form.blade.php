@@ -16,7 +16,7 @@
             Form::select(
                 'jurisdiccion_id',
                 ['' => 'Seleccionar jurisdiccion...'] + $jurisdicciones,
-                isset($multa) ? $multa->jurisdiccion_id : null,
+                isset($multa) ? $multa->jurisdiccion_id : 19,
                 [
                     'class' => 'form-control',
                     'required'
@@ -39,19 +39,26 @@
             )
         }}
     </div>
+
     <div class="form-group">
         {{ Form::label('monto', 'Monto:') }}
-        {{
-            Form::text(
-                'monto',
-                isset($multa) ? $multa->monto : null,
-                [
-                    'class' => 'form-control',
-                    'placeholder' => 'Monto de la infracción',
-                    'required'
-                ]
-            )
-        }}
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="fa fa-usd" aria-hidden="true"></i>
+            </span>
+            {{
+                Form::text(
+                    'monto',
+                    isset($multa) ? $multa->monto : null,
+                    [
+                        'class' => 'form-control',
+                        'placeholder' => 'Monto de la infracción',
+                        'required'
+                    ]
+                )
+            }}
+            <span class="input-group-addon">.00</span>
+        </div>
     </div>
     
 </div>

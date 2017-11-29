@@ -4932,6 +4932,17 @@ table.text-center th {
 }
 
 /*
+ * Checkbox para patentes
+ * -----------
+ */
+.patentes-check .btn span.glyphicon {         
+  opacity: 0;       
+}
+.patentes-check .btn.active span.glyphicon {        
+  opacity: 1;       
+}
+
+/*
  * Vista del gestor
  * -----------
  */

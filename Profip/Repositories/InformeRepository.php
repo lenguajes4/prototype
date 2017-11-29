@@ -16,7 +16,12 @@ class InformeRepository
             'numero_tramite' => 'required|integer|unique:informes',
             'tipo_tramite_id' => 'required|integer',
             'usuario_id' => 'required|integer'
-        ]
+        ],
+        'update_baja' => [
+            'provincia_baja_id' => 'required|integer',
+            'municipio_baja' => 'required|string',
+            'fecha_baja' => 'required|date'
+        ],
     ];
 
     public function __construct(Informe $informe)
@@ -50,7 +55,7 @@ class InformeRepository
         return $this->informe->find($id);
     }
 
-    public function get($id = null)
+    public function get()
     {
         return $this->informe->get();
     }

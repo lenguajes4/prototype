@@ -1,10 +1,10 @@
-@extends('multas.form')
+@extends('patentes.form')
 
 @section('open-form')
     {{
         Form::open(
             [
-                'route' => ['multa.store'],
+                'route' => ['patente.store'],
                 'method' => 'post'
             ]
         )
@@ -14,7 +14,7 @@
 @section('style', 'bg-info')
 
 @section('title')
-    <h4 class="modal-title text-info">Agregar multa</h4>
+    <h4 class="modal-title text-info">Agregar periodo de patente</h4>
 @stop
 
 @section('hidden')

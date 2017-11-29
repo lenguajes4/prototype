@@ -11,7 +11,6 @@ class Multa extends Model
     protected $fillable = ['vehiculo_id', 'jurisdiccion_id', 'acta', 'monto'];
 
     protected $rules = [
-        'vehiculo_id' => 'required|integer',
         'jurisdiccion_id' => 'required|integer',
         'acta' => 'required|integer|min:1',
         'monto' => 'required|integer|min:1'

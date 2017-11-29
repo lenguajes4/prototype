@@ -8,6 +8,8 @@ use App\TipoTramite;
 use App\User;
 use App\Multa;
 use App\Patente;
+use App\Provincia;
+use Carbon\Carbon;
 
 class InformesController extends Controller
 {
@@ -16,13 +18,15 @@ class InformesController extends Controller
     protected $usuario = null;
     protected $multa = null;
     protected $patente = null;
+    protected $provincia = null;
 
     public function __construct(
         Informe $informe,
         TipoTramite $tipo,
         User $usuario,
         Multa $multa,
-        Patente $patente
+        Patente $patente,
+        Provincia $provincia
     )
     {
         $this->informe = $informe;
@@ -30,6 +34,7 @@ class InformesController extends Controller
         $this->usuario = $usuario;
         $this->multa = $multa;
         $this->patente = $patente;
+        $this->provincia = $provincia;
     }
 
     /**
@@ -86,7 +91,11 @@ class InformesController extends Controller
     public function show($id)
     {
         $informe = $this->informe->find($id);
-        return view('informe.show', compact('informe'));
+        $conceptos = $informe->conceptos;
+        $multas = $this->multa->where('vehiculo_id', $informe->vehiculo_id)->get();
+        $patentes = $this->patente->where('vehiculo_id', $informe->vehiculo_id)->get();
+        
+        return view('informe.show', compact('informe', 'conceptos', 'multas', 'patentes'));
     }
 
     /**
@@ -100,9 +109,9 @@ class InformesController extends Controller
         $informe = $this->informe->find($id);
         $conceptos = $informe->conceptos;
         $multas = $this->multa->where('vehiculo_id', $informe->vehiculo_id)->get();
-        //$patentes = $this->patente->where('vehiculo_id', $informe->vehiculo_id)->get();
+        $patentes = $this->patente->where('vehiculo_id', $informe->vehiculo_id)->get();
         
-        return view('informe.edit', compact('informe', 'conceptos', 'multas'));
+        return view('informe.edit', compact('informe', 'conceptos', 'multas', 'patentes'));
     }
 
     /**
@@ -132,5 +141,84 @@ class InformesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Carga formulario para editar la solicitud de baja.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function editBaja($informe_id)
+    {
+        $provincias = $this->provincia->pluck('nombre', 'id')->toArray();
+        $informe = $this->informe->find($informe_id);
+
+        return view('baja.form', compact('provincias', 'informe'));
+    }
+
+    /**
+     * Actualiza datos de la solicitud de baja.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateBaja(Request $request)
+    {
+        $this->validate($request, $this->informe->rules['update_baja']);
+        $data = $request->all();
+        $data['fecha_baja'] = $this->getDate($request->fecha_baja);
+
+        $vehiculo = $this->informe->find($request->informe_id)->vehiculo;
+        $vehiculo->fill($data);
+        $vehiculo->save();
+
+        return redirect()
+            ->route('informe.edit', $request->informe_id)
+            ->with('success', 'Solicitud de baja agregada correctamente.');
+
+    }
+
+    /**
+     * Carga formulario para editar la solicitud de baja.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showBaja($informe_id)
+    {
+        $informe = $this->informe->find($informe_id);
+
+        return view('baja.destroy', compact('informe'));
+    }
+
+    /**
+     * Carga formulario para editar la solicitud de baja.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyBaja(Request $request)
+    {
+        $vehiculo = $this->informe->find($request->informe_id)->vehiculo;
+        $vehiculo->provincia_baja_id = null;
+        $vehiculo->municipio_baja = null;
+        $vehiculo->fecha_baja = null;
+        $vehiculo->baja_requerida = false;
+        $vehiculo->save();
+
+        return redirect()
+            ->route('informe.edit', $request->informe_id)
+            ->with('success', 'Solicitud de baja eliminada correctamente.');
+    }
+
+    /**
+     * Transforma $input en formato válido de fecha.
+     *
+     * @return Response
+     */
+    protected function getDate($input)
+    {
+        return !$input? null : Carbon::createFromFormat('d/m/Y', $input);
     }
 }

@@ -1,7 +1,7 @@
 {{
     Form::open(
         [
-            'route' => ['multa.destroy', $multa->id],
+            'route' => ['patente.destroy', $patente->id],
             'method' => 'delete'
         ]
     )
@@ -11,18 +11,23 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title text-danger"><i class="fa fa-question-circle"></i> Eliminar acta</h4>
+        <h4 class="modal-title text-danger"><i class="fa fa-question-circle"></i> Eliminar periodos</h4>
     </div>
 
     <div class="modal-body">
         
         {{ Form::hidden('informe_id', $informe_id) }}
         
-        <p>Se va a eliminar la siguiente multa del informe:</p>
+        <p>Se van a eliminar los siguientes periodos de patentes del informe:</p>
         <p>
-            <b>Jurisdiccion: </b>{{ $multa->jurisdiccion }}<br>
-            <b>Acta: </b>{{ $multa->acta }}<br>
-            <b>Monto: </b> {{ $multa->monto }}
+            <b>Jurisdiccion: </b>{{ $patente->jurisdiccion }}<br>
+            <b>Periodos: </b>
+            @foreach (json_decode($patente->periodos) as $periodo)
+                <span class="label label-danger">{{ $periodo }}</span>
+            @endforeach
+            <br>
+            <b>Monto aprox. por periodo: </b>{{ number_format($patente->monto_unitario, 0, ',', '.') }}<br>
+            <b>Subtotal: </b>{{ number_format((count(json_decode($patente->periodos)) * $patente->monto_unitario), 0, ',', '.') }}
         </p>
     </div>
 

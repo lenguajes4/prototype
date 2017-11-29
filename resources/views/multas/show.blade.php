@@ -1,4 +1,4 @@
-<div class="box box-primary">
+<div class="box box-info">
     <div class="box-header with-border">
         <h3 class="box-title">Multas</h3>
         <button
@@ -44,12 +44,12 @@
                         </td>
                         <td>{{ $multa->acta }}</td>
                         <td>{{ $multa->jurisdiccion }}</td>
-                        <td>{{ $multa->monto }}</td>
+                        <td>${{ number_format($multa->monto, 0, ',', '.') }}</td>
                     </tr>
                 @empty
                     <tr>
                         <td colspan="5" class="text-center">
-                            Sin infracciones registradas en el sistema SUGIT.
+                            Sin infracciones registradas en el sistema de multas.
                         </td>
                     </tr>
                 @endforelse
@@ -58,7 +58,7 @@
                 @if (!empty($multas->toArray()))
                     <tr>
                         <td colspan="4">Total</td>
-                        <td>${{ $informe->vehiculo->total_multas }}</td>
+                        <td>${{ number_format($informe->vehiculo->total_multas, 0, ',', '.') }}</td>
                     </tr>
                 @endif
             </tfoot>

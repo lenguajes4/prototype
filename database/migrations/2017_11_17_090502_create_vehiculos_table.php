@@ -17,6 +17,10 @@ class CreateVehiculosTable extends Migration
             $table->increments('id');
             $table->string('dominio', 50)->unique();
             $table->integer('tipo_vehiculo_id')->unsigned();
+            $table->integer('provincia_baja_id')->nullable();
+            $table->string('municipio_baja', 256)->nullable();
+            $table->dateTime('fecha_baja')->nullable();
+            $table->boolean('baja_requerida')->nullable();
             $table->timestamps();
         });
 

@@ -104,11 +104,16 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             @include('multas.show')
         </div>
-        <div class="col-md-6">
+    </div>
+    <div class="row">
+        <div class="col-md-7">
             @include('patentes.show')
+        </div>
+        <div class="col-md-5">
+            @include('baja.show')
         </div>
     </div>
 
@@ -123,6 +128,8 @@
 
 @section('js')
     <script src="{{ asset('js/viaAjaxLite.js') }}"></script>
+    <script src="{{ asset('js/jquery.inputmask.js') }}"></script>
+    <script src="{{ asset('js/jquery.inputmask.date.extensions.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function(){
             $('#modal-app').on('show.bs.modal', function (event) {

@@ -1,11 +1,11 @@
-<div class="box box-primary">
+<div class="box box-info">
     <div class="box-header with-border">
-        <h3 class="box-title">Multas</h3>
+        <h3 class="box-title">Patentes</h3>
         <button
             type="button"
             class="btn btn-default pull-right btn-sm"
             data-toggle="modal"
-            data-url="{{ route('multa.create', $informe->id) }}"
+            data-url="{{ route('patente.create', $informe->id) }}"
             data-target="#modal-app">
             <i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar
         </button>
@@ -13,24 +13,26 @@
     <div class="box-body">
         <table class="table">
             <thead>
-                @if (!empty($multas->toArray()))
+                @if (!empty($patentes->toArray()))
                     <tr>
                         <th></th>
                         <th></th>
-                        <th>N° de Acta</th>
                         <th>Jurisdicción</th>
-                        <th>Monto</th>
+                        <th>Año</th>
+                        <th>Periodos</th>
+                        <th>$ aprox. c/u</th>
+                        <th>Subtotal</th>
                     </tr>
                 @endif
             </thead>
             <tbody>
-                @forelse ($multas as $multa)
+                @forelse ($patentes as $patente)
                     <tr>
                         <td><a
                             href="#modal-app"
                             title="Click para editar"
                             data-toggle="modal"
-                            data-url="{{ route('multa.{informe_id}.edit', [$informe->id, $multa->id]) }}">
+                            data-url="{{ route('patente.{informe_id}.edit', [$informe->id, $patente->id]) }}">
                                 <i class="fa fa-pencil" aria-hidden="true"></i>
                             </a>
                         </td>
@@ -38,27 +40,36 @@
                             href="#modal-app"
                             title="Click para eliminar"
                             data-toggle="modal"
-                            data-url="{{ route('multa.{informe_id}.show', [$informe->id, $multa->id]) }}">
+                            data-url="{{ route('patente.{informe_id}.show', [$informe->id, $patente->id]) }}">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                             </a>
                         </td>
-                        <td>{{ $multa->acta }}</td>
-                        <td>{{ $multa->jurisdiccion }}</td>
-                        <td>{{ $multa->monto }}</td>
+                        <td>{{ $patente->jurisdiccion }}</td>
+                        <td>{{ $patente->year }}</td>
+                        <td>
+                            {{ collect(json_decode($patente->periodos))->implode(' - ') }}
+                        </td>
+                        <td>${{ number_format($patente->monto_unitario, 0, ',', '.') }}</td>
+                        <td>
+                            $
+                            {{
+                                number_format((count(json_decode($patente->periodos)) * $patente->monto_unitario), 0, ',', '.')
+                            }}
+                        </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" class="text-center">
-                            Sin infracciones registradas en el sistema SUGIT.
+                        <td colspan="7" class="text-center">
+                            Sin periodos adeudados en el sistema de patentes.
                         </td>
                     </tr>
                 @endforelse
             </tbody>
             <tfoot>
-                @if (!empty($multas->toArray()))
+                @if (!empty($patentes->toArray()))
                     <tr>
-                        <td colspan="4">Total</td>
-                        <td>${{ $informe->vehiculo->total_multas }}</td>
+                        <td colspan="6">Total</td>
+                        <td>${{ number_format($informe->vehiculo->total_patentes, 0, ',', '.') }}</td>
                     </tr>
                 @endif
             </tfoot>

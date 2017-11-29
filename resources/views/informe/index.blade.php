@@ -40,6 +40,7 @@
                     <table id="informe-table" class="table table-bordered table-striped">
                         <thead>
                             <tr>
+                                <th></th>
                                 <th>N° de trámite</th>
                                 <th>Dominio</th>
                                 <th>Trámite</th>
@@ -50,6 +51,13 @@
                         <tbody>
                             @foreach ($informes as $informe)
                                 <tr>
+                                    <td>
+                                        <a
+                                            href="{{ route('informe.show', $informe->id) }}"
+                                            title="Ver">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                    </td>
                                     <td>
                                         <a href="{{ route('informe.show', $informe->id) }}">
                                             {{ $informe->numero_tramite }}
@@ -62,15 +70,6 @@
                                 </tr>
                             @endforeach
                         </tbody>
-                        {{-- <tfoot>
-                            <tr>
-                                <th>N° de trámite</th>
-                                <th>Dominio</th>
-                                <th>Trámite</th>
-                                <th>Estado</th>
-                                <th>Gestor</th>
-                            </tr>
-                        </tfoot> --}}
                     </table>
                 </div>
             </div>

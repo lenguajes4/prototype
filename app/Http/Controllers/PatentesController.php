@@ -3,9 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Patente;
+use App\Jurisdiccion;
+use App\Informe;
 
 class PatentesController extends Controller
 {
+    protected $patente = null;
+    protected $jurisdiccion = null;
+    protected $informe = null;
+    
+    public function __construct(
+        Patente $patente,
+        Jurisdiccion $jurisdiccion,
+        Informe $informe
+    )
+    {
+        $this->patente = $patente;
+        $this->jurisdiccion = $jurisdiccion;
+        $this->informe = $informe;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -21,9 +38,12 @@ class PatentesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($informe_id)
     {
-        //
+        $vehiculo_id = $this->informe->find($informe_id)->vehiculo_id;
+        $jurisdicciones = $this->jurisdiccion->pluck('nombre', 'id')->toArray();
+
+        return view('patentes.create', compact('jurisdicciones', 'informe_id', 'vehiculo_id'));
     }
 
     /**
@@ -34,7 +54,14 @@ class PatentesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, $this->patente->getRules());
+        $data = $request->all();
+        $data['periodos'] = json_encode($request->periodos);
+        $this->patente->create($data);
+
+        return redirect()
+            ->route('informe.edit', $request->informe_id)
+            ->with('success', 'Periodos agregados correctamente.');
     }
 
     /**
@@ -43,9 +70,11 @@ class PatentesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($informe_id, $patente_id)
     {
-        //
+        $patente = $this->patente->find($patente_id);
+
+        return view('patentes.destroy', compact('patente', 'informe_id'));
     }
 
     /**
@@ -54,9 +83,12 @@ class PatentesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($informe_id, $patente_id)
     {
-        //
+        $patente = $this->patente->find($patente_id);
+        $jurisdicciones = $this->jurisdiccion->pluck('nombre', 'id')->toArray();
+
+        return view('patentes.edit', compact('patente', 'jurisdicciones', 'informe_id'));
     }
 
     /**
@@ -68,7 +100,17 @@ class PatentesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, $this->patente->getRules());
+        $data = $request->all();
+        $data['periodos'] = json_encode($request->periodos);
+
+        $patente = $this->patente->find($id);
+        $patente->fill($data);
+        $patente->save();
+
+        return redirect()
+            ->route('informe.edit', $request->informe_id)
+            ->with('success', 'Periodos actualizados correctamente.');
     }
 
     /**
@@ -77,8 +119,13 @@ class PatentesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $patente = $this->patente->find($id);
+        $patente->delete();
+
+        return redirect()
+            ->route('informe.edit', $request->informe_id)
+            ->with('success', 'Periodos eliminados correctamente.');
     }
 }

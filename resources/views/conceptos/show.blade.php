@@ -42,7 +42,7 @@
                             </a>
                         </td>
                         <td>{{ $concepto->nombre }}</td>
-                        <td>{{ $concepto->monto }}</td>
+                        <td>${{ number_format($concepto->monto, 0, ',', '.') }}</td>
                     </tr>
                 @empty
                     <tr>
@@ -56,7 +56,7 @@
                 @if (!empty($conceptos->toArray()))
                     <tr>
                         <td colspan="3">Total</td>
-                        <td>${{ $informe->total_conceptos }}</td>
+                        <td>${{ number_format($informe->total_conceptos, 0, ',', '.') }}</td>
                     </tr>
                 @endif
             </tfoot>

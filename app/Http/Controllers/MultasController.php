@@ -5,26 +5,22 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Multa;
 use App\Jurisdiccion;
-//use App\Vehiculo;
 use App\Informe;
 
 class MultasController extends Controller
 {
     protected $multa = null;
     protected $jurisdiccion = null;
-    //protected $vehiculo = null;
     protected $informe = null;
     
     public function __construct(
         Multa $multa,
         Jurisdiccion $jurisdiccion,
-        //Vehiculo $vehiculo,
         Informe $informe
     )
     {
         $this->multa = $multa;
         $this->jurisdiccion = $jurisdiccion;
-        //$this->vehiculo = $vehiculo;
         $this->informe = $informe;
     }
 
@@ -103,6 +99,7 @@ class MultasController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, $this->multa->getRules());
         $multa = $this->multa->find($id);
         $multa->fill($request->all());
         $multa->save();

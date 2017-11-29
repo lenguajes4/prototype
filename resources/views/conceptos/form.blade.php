@@ -23,19 +23,26 @@
             )
         }}
     </div>
+
     <div class="form-group">
         {{ Form::label('monto', 'Monto:') }}
-        {{
-            Form::text(
-                'monto',
-                isset($concepto) ? $concepto->monto : null,
-                [
-                    'class' => 'form-control',
-                    'placeholder' => 'Monto del concepto',
-                    'required'
-                ]
-            )
-        }}
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="fa fa-usd" aria-hidden="true"></i>
+            </span>
+            {{
+                Form::text(
+                    'monto',
+                    isset($concepto) ? $concepto->monto : null,
+                    [
+                        'class' => 'form-control',
+                        'placeholder' => 'Monto del concepto',
+                        'required'
+                    ]
+                )
+            }}
+            <span class="input-group-addon">.00</span>
+        </div>
     </div>
     
 </div>

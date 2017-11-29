@@ -15,7 +15,17 @@ class CreatePatentesTable extends Migration
     {
         Schema::create('patentes', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('vehiculo_id')->unsigned();
+            $table->integer('jurisdiccion_id')->unsigned();
+            $table->integer('year')->unsigned();
+            $table->text('periodos');
+            $table->integer('monto_unitario')->unsigned();
             $table->timestamps();
+        });
+
+        Schema::table('patentes', function($table) {
+            $table->foreign('vehiculo_id')->references('id')->on('vehiculos');
+            $table->foreign('jurisdiccion_id')->references('id')->on('jurisdicciones');
         });
     }
 
