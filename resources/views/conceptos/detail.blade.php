@@ -11,12 +11,6 @@
                 <td>{{ $concepto->nombre }}</td>
                 <td>${{ number_format($concepto->monto, 0, ',', '.') }}</td>
             </tr>
-        @empty
-            <tr>
-                <td colspan="2" class="text-center">
-                    Sin conceptos adeudados.
-                </td>
-            </tr>
         @endforeach
     </tbody>
     <tfoot>

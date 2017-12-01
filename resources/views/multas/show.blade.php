@@ -1,22 +1,30 @@
-<div class="box box-info">
+<div class="box box-widget">
     <div class="box-header with-border">
-        <h3 class="box-title">Multas</h3>
-        <button
-            type="button"
-            class="btn btn-default pull-right btn-sm"
-            data-toggle="modal"
-            data-url="{{ route('multa.create', $informe->id) }}"
-            data-target="#modal-app">
-            <i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar
-        </button>
+        <div class="user-block">
+            <img class="img-circle" src="{{ asset('img/info.png') }}">
+            <span class="username text-light-blue">Multas</span>
+            <span class="description">
+                Datos obtenidos del sistema de multas.
+            </span>
+        </div>
+        <div class="box-tools">
+            <button
+                type="button"
+                class="btn btn-default pull-right btn-xs"
+                data-toggle="modal"
+                data-url="{{ route('multa.create', $informe->id) }}"
+                data-target="#modal-app">
+                <i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar
+            </button>
+        </div>
     </div>
     <div class="box-body">
-        <table class="table">
+        <table class="table table-hover">
             <thead>
                 @if (!empty($multas->toArray()))
                     <tr>
-                        <th></th>
-                        <th></th>
+                        <th style="width: 7px"></th>
+                        <th style="width: 7px"></th>
                         <th>N° de Acta</th>
                         <th>Jurisdicción</th>
                         <th>Monto</th>
@@ -56,8 +64,8 @@
             </tbody>
             <tfoot>
                 @if (!empty($multas->toArray()))
-                    <tr>
-                        <td colspan="4">Total</td>
+                    <tr class="text-center">
+                        <td colspan="4"><b><i>TOTAL</i></b></td>
                         <td>${{ number_format($informe->vehiculo->total_multas, 0, ',', '.') }}</td>
                     </tr>
                 @endif

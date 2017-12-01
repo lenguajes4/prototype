@@ -18,7 +18,7 @@
         <p>Se va a eliminar el siguiente concepto:</p>
         <p>
             <b>Nombre: </b>{{ $concepto->nombre }}<br>
-            <b>Monto: </b> {{ $concepto->monto }}
+            <b>Monto: </b>${{ number_format($concepto->monto, 0, ',', '.') }}
         </p>
     </div>
 

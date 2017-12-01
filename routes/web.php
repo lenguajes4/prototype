@@ -28,7 +28,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('concepto', 'ConceptosController');
     Route::get(
         'informe/{id}/concepto/agregar',
-        ['as' => 'conceptos.create', 'uses' => 'ConceptosController@create']
+        ['as' => 'concepto.create', 'uses' => 'ConceptosController@create']
     );
 
     // Rutas para multas

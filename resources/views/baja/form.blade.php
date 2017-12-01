@@ -1,5 +1,6 @@
 {{
-    Form::open(
+    Form::model(
+        $informe->vehiculo,
         [
             'route' => ['baja.update'],
             'method' => 'post'
@@ -21,7 +22,7 @@
                 Form::select(
                     'provincia_baja_id',
                     ['' => 'Seleccionar provincia...'] + $provincias,
-                    $informe->vehiculo->provincia_baja_id,
+                    null,
                     [
                         'class' => 'form-control',
                         'required'
@@ -35,7 +36,7 @@
             {{
                 Form::text(
                     'municipio_baja',
-                    $informe->vehiculo->municipio_baja,
+                    null,
                     [
                         'class' => 'form-control',
                         'placeholder' => 'Municipio o jurisdicción de baja.',
@@ -53,7 +54,7 @@
                 {{
                     Form::text(
                         'fecha_baja',
-                        null,
+                        $informe->vehiculo->fecha_baja?date('d/m/Y', strtotime($informe->vehiculo->fecha_baja)):null,
                         [
                             'class' => 'form-control',
                             'id' => 'datemask',
@@ -65,7 +66,8 @@
                 }}
             </div>
         </div>
-        {{ Form::hidden('baja_requerida') }}
+
+        {{ Form::hidden('baja_requerida', 0) }}
         <div class="checkbox">
             <label>
                 {{ Form::checkbox('baja_requerida') }}&nbsp;Necesaria para retirar documentación.
@@ -73,7 +75,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        {{ Form::button('Agregar', ['type'=>'submit', 'class'=>'btn btn-primary']) }}
+        {{ Form::button('Aceptar', ['type'=>'submit', 'class'=>'btn btn-primary']) }}
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
     </div>
 

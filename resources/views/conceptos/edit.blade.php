@@ -2,7 +2,8 @@
 
 @section('open-form')
     {{
-        Form::open(
+        Form::model(
+            $concepto,
             [
                 'route' => ['concepto.update', $concepto->id],
                 'method' => 'put'

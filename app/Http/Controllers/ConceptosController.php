@@ -42,7 +42,9 @@ class ConceptosController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, $this->concepto->getRules());
-        $this->concepto->create($request->all());
+        $data = $request->all();
+        $data['nombre'] = ucfirst($request->nombre);
+        $this->concepto->create($data);
 
         return redirect()
             ->route('informe.edit', $request->informe_id)
@@ -85,7 +87,9 @@ class ConceptosController extends Controller
     public function update(Request $request, $id)
     {
         $concepto = $this->concepto->find($id);
-        $concepto->fill($request->all());
+        $data = $request->all();
+        $data['nombre'] = ucfirst($request->nombre);
+        $concepto->fill($data);
         $concepto->save();
 
         return redirect()

@@ -42,89 +42,90 @@
             ]
         )
     }}
-
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <h3 class="box-title">Datos del trámite</h3>
-            </div>
-            <div class="box-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            {{ Form::label('dominio', 'Dominio:', ['class' => 'col-sm-4 control-label']) }}
-                            <div class="col-sm-8">
-                                {{
-                                    Form::text(
-                                        'dominio',
-                                        null,
-                                        [
-                                            'class' => 'form-control',
-                                            'placeholder' => 'Número de dominio',
-                                            'required'
-                                        ]
-                                    )
-                                }}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            {{ Form::label('numero_tramite', 'N° de trámite:', ['class' => 'col-sm-4 control-label']) }}
-                            <div class="col-sm-8">
-                                {{
-                                    Form::text(
-                                        'numero_tramite',
-                                        null,
-                                        [
-                                            'class' => 'form-control',
-                                            'placeholder' => 'Número de trámite',
-                                            'required'
-                                        ]
-                                    )
-                                }}
-                            </div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Datos del trámite</h3>
+                </div>
+                <div class="box-body">
+                    <div class="form-group">
+                        {{ Form::label('dominio', 'Dominio:', ['class' => 'col-sm-4 control-label']) }}
+                        <div class="col-sm-8">
+                            {{
+                                Form::text(
+                                    'dominio',
+                                    null,
+                                    [
+                                        'class' => 'form-control',
+                                        'style' => 'text-transform:uppercase;',
+                                        'required'
+                                    ]
+                                )
+                            }}
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            {{ Form::label('tipo', 'Tipo de trámite:', ['class' => 'col-md-4 control-label']) }}
-                            <div class="col-sm-8">
-                                {{
-                                    Form::select(
-                                        'tipo_tramite_id',
-                                        ['' => 'Seleccionar tipo de trámite...'] + $tipos,
-                                        null,
-                                        [
-                                            'class' => 'form-control select2',
-                                            'style' => 'width:100%;',
-                                            'required'
-                                        ]
-                                    )
-                                }}
-                            </div>
+                    <div class="form-group">
+                        {{ Form::label('numero_tramite', 'N° de trámite:', ['class' => 'col-sm-4 control-label']) }}
+                        <div class="col-sm-8">
+                            {{
+                                Form::text(
+                                    'numero_tramite',
+                                    null,
+                                    [
+                                        'class' => 'form-control',
+                                        'required'
+                                    ]
+                                )
+                            }}
                         </div>
-                        <div class="form-group">
-                            {{ Form::label('gestor', 'Gestor:', ['class' => 'col-sm-4 control-label']) }}
-                            <div class="col-sm-8">
-                                {{
-                                    Form::select(
-                                        'usuario_id',
-                                        ['' => 'Seleccionar gestor...'] + $gestores,
-                                        null,
-                                        [
-                                            'class' => 'form-control select2',
-                                            'required'
-                                        ]
-                                    )
-                                }}
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        {{ Form::label('tipo', 'Tipo de trámite:', ['class' => 'col-md-4 control-label']) }}
+                        <div class="col-sm-8">
+                            {{
+                                Form::select(
+                                    'tipo_tramite_id',
+                                    ['' => 'Seleccionar tipo de trámite...'] + $tipos,
+                                    null,
+                                    [
+                                        'class' => 'form-control select2',
+                                        'required'
+                                    ]
+                                )
+                            }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ Form::label('gestor', 'Gestor:', ['class' => 'col-sm-4 control-label']) }}
+                        <div class="col-sm-8">
+                            {{
+                                Form::select(
+                                    'usuario_id',
+                                    ['' => 'Seleccionar gestor...'] + $gestores,
+                                    null,
+                                    [
+                                        'class' => 'form-control select2',
+                                        'required'
+                                    ]
+                                )
+                            }}
+                        </div>
+                    </div>       
+                </div>
+                <div class="box-footer">
+                    <div class="row">
+                        <div class="col-md-5 col-md-offset-4">
+                            <button type="submit" class="btn btn-primary btn-flat btn-block">
+                                Continuar&nbsp;
+                                <i class="fa fa-arrow-circle-right"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="box-footer">
-                {{ Form::submit('Guardar', ['class' => 'btn btn-primary pull-right']) }}
-            </div>
         </div>
-            
+    </div>
     {{ Form::close() }}
 @endsection
 

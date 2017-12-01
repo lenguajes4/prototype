@@ -25,60 +25,59 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box">
-                <span class="info-box-icon bg-aqua"><i class="fa fa-file-text-o"></i></span>
-                <div class="info-box-content">
-                    <span class="info-box-text">N° de Trámite</span>
-                    <span class="info-box-number">{{ $informe->numero_tramite }}</span>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box">
-                <span class="info-box-icon bg-green"><i class="fa fa-car"></i></span>
-                <div class="info-box-content">
-                    <span class="info-box-text">Dominio</span>
-                    <span class="info-box-number">{{ $informe->dominio }}</span>
-                </div>
-            </div>
-        </div>
-        <div class="clearfix visible-sm-block"></div>
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box">
-                <span class="info-box-icon bg-yellow"><i class="fa fa-tag"></i></span>
-                <div class="info-box-content">
-                    <span class="info-box-text">Tipo de Trámite</span>
-                    <span class="info-box-number">{{ $informe->tipo_tramite }}</span>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box">
-                <span class="info-box-icon bg-red"><i class="fa fa-user"></i></span>
-                <div class="info-box-content">
-                    <span class="info-box-text">Gestor</span>
-                    <span class="info-box-number">{{ $informe->gestor }}</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            {{
-                Form::model(
-                    $informe,
-                    [
-                        'route' => ['informe.update', $informe->id],
-                        'method' => 'put'
-                    ]
-                )
-            }}
-                <div class="box box-primary">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Observaciones</h3>
+        <div class="col-md-4">
+            <div class="box box-widget widget-user-2">
+                <div class="widget-user-header bg-primary">
+                    <div class="widget-user-image">
+                        <img class="img-circle" src="{{ asset('img/bandera.png') }}">
                     </div>
-                    <div class="box-body">
+                    <h3 class="widget-user-username">{{ $informe->dominio }}</h3>
+                    <h5 class="widget-user-desc">{{ $informe->tipo_tramite }}</h5>
+                </div>
+                <div class="box-footer no-padding">
+                    <ul class="nav nav-stacked">
+                        <li>
+                            <a href="#">
+                                N° de trámite: <b>{{ number_format($informe->numero_tramite, 0, ',', '.') }}</b>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Gestor: <b>{{ $informe->gestor }}</b>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Estado: <b>{{ $informe->estado }}</b>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            @include('conceptos.show')
+            @include('baja.show')
+        </div>
+        <div class="col-md-8">
+            <div class="box box-widget">
+                <div class="box-header with-border">
+                    <div class="user-block">
+                        <img class="img-circle" src="{{ asset('img/file.png') }}">
+                        <span class="username text-light-blue">Observaciones</span>
+                        <span class="description">
+                            Completar en caso de presentar observaciones registrales.
+                        </span>
+                    </div>
+                </div>
+                <div class="box-body">
+                    {{
+                        Form::model(
+                            $informe,
+                            [
+                                'route' => ['informe.update', $informe->id],
+                                'method' => 'put'
+                            ]
+                        )
+                    }}
                         <div class="form-group">
                             {{
                                 Form::textarea(
@@ -86,34 +85,23 @@
                                     null,
                                     [
                                         'class' => 'form-control',
-                                        'rows' => 3,
-                                        'placeholder' => 'Redactar observaciones...'
+                                        'rows' => 4,
+                                        'placeholder' => 'Redactar observaciones...',
+                                        'style' => 'resize: none;'
                                     ]
                                 )
                             }}
                         </div>
-                    </div>
-                    <div class="box-footer">
-                        {{ Form::submit('Guardar', ['class' => 'btn btn-primary pull-right']) }}
-                    </div>
+                        <button
+                            type="submit"
+                            class="btn btn-default btn-xs pull-right">
+                            <i class="fa fa-floppy-o"></i> Guardar
+                        </button>
+                    {{ Form::close() }}
                 </div>
-            {{ Form::close() }}
-        </div>
-        <div class="col-md-6">
-            @include('conceptos.show')
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
+            </div>
             @include('multas.show')
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-7">
             @include('patentes.show')
-        </div>
-        <div class="col-md-5">
-            @include('baja.show')
         </div>
     </div>
 

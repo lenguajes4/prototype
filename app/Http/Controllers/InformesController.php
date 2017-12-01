@@ -8,7 +8,6 @@ use App\TipoTramite;
 use App\User;
 use App\Multa;
 use App\Patente;
-use App\Provincia;
 use Carbon\Carbon;
 
 class InformesController extends Controller
@@ -18,15 +17,13 @@ class InformesController extends Controller
     protected $usuario = null;
     protected $multa = null;
     protected $patente = null;
-    protected $provincia = null;
 
     public function __construct(
         Informe $informe,
         TipoTramite $tipo,
         User $usuario,
         Multa $multa,
-        Patente $patente,
-        Provincia $provincia
+        Patente $patente
     )
     {
         $this->informe = $informe;
@@ -34,7 +31,6 @@ class InformesController extends Controller
         $this->usuario = $usuario;
         $this->multa = $multa;
         $this->patente = $patente;
-        $this->provincia = $provincia;
     }
 
     /**
@@ -94,6 +90,7 @@ class InformesController extends Controller
         $conceptos = $informe->conceptos;
         $multas = $this->multa->where('vehiculo_id', $informe->vehiculo_id)->get();
         $patentes = $this->patente->where('vehiculo_id', $informe->vehiculo_id)->get();
+
         
         return view('informe.show', compact('informe', 'conceptos', 'multas', 'patentes'));
     }
@@ -108,8 +105,17 @@ class InformesController extends Controller
     {
         $informe = $this->informe->find($id);
         $conceptos = $informe->conceptos;
-        $multas = $this->multa->where('vehiculo_id', $informe->vehiculo_id)->get();
-        $patentes = $this->patente->where('vehiculo_id', $informe->vehiculo_id)->get();
+
+        $multas = $this->multa
+            ->where('vehiculo_id', $informe->vehiculo_id)
+            ->orderBy('jurisdiccion_id')
+            ->get();
+
+        $patentes = $this->patente
+            ->where('vehiculo_id', $informe->vehiculo_id)
+            ->orderBy('jurisdiccion_id')
+            ->orderBy('year')
+            ->get();
         
         return view('informe.edit', compact('informe', 'conceptos', 'multas', 'patentes'));
     }
@@ -151,7 +157,7 @@ class InformesController extends Controller
      */
     public function editBaja($informe_id)
     {
-        $provincias = $this->provincia->pluck('nombre', 'id')->toArray();
+        $provincias = \App\Provincia::pluck('nombre', 'id')->toArray();
         $informe = $this->informe->find($informe_id);
 
         return view('baja.form', compact('provincias', 'informe'));
@@ -168,7 +174,8 @@ class InformesController extends Controller
         $this->validate($request, $this->informe->rules['update_baja']);
         $data = $request->all();
         $data['fecha_baja'] = $this->getDate($request->fecha_baja);
-
+        $data['municipio_baja'] = ucfirst($request->municipio_baja);
+        
         $vehiculo = $this->informe->find($request->informe_id)->vehiculo;
         $vehiculo->fill($data);
         $vehiculo->save();
