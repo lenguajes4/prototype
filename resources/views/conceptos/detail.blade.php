@@ -1,22 +1,18 @@
-<table class="table">
-    <thead>
-        <tr>
-            <th>Concepto</th>
-            <th>Monto</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($conceptos as $concepto)
-            <tr>
-                <td>{{ $concepto->nombre }}</td>
-                <td>${{ number_format($concepto->monto, 0, ',', '.') }}</td>
-            </tr>
-        @endforeach
-    </tbody>
-    <tfoot>
-        <tr>
-            <td>Total</td>
-            <td>${{ number_format($informe->total_conceptos, 0, ',', '.') }}</td>
-        </tr>
-    </tfoot>
-</table>
+<div class="box-footer box-comments">
+    <div class="box-comment">
+        <img class="img-circle img-sm" src="{{ asset('img/dollar.png') }}">
+        <div class="comment-text">
+            <span class="username">
+                Conceptos adeudados
+            </span>
+            <p>
+                @foreach ($conceptos as $concepto)
+                    <b>
+                        ${{ number_format($concepto->monto, 0, ',', '.') }}
+                    </b> por {{ $concepto->nombre }}
+                    <br>
+                @endforeach
+            </p>
+        </div>
+    </div>
+</div>

@@ -63,10 +63,10 @@
                                             {{ $informe->numero_tramite }}
                                         </a>
                                     </td>
-                                    <td>{{ $informe->dominio }}</td>
-                                    <td>{{ $informe->tipo_tramite }}</td>
-                                    <td>{{ $informe->estado }}</td>
-                                    <td>{{ $informe->gestor }}</td>
+                                    <td>{{ $informe->vehiculo->dominio }}</td>
+                                    <td>{{ $informe->tramite->nombre }}</td>
+                                    <td>{{ $informe->estado->nombre }}</td>
+                                    <td>{{ $informe->gestor->apellido.', '.$informe->gestor->nombre }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

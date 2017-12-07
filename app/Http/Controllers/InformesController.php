@@ -146,7 +146,23 @@ class InformesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $informe = $this->informe->find($id);
+        $informe->delete();
+
+        return redirect('/')->with('success', 'Informe eliminado correctamente.');
+    }
+
+    /**
+     * Carga formulario para eliminar informe.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showDeleteForm($id)
+    {
+        $informe = $this->informe->find($id);
+
+        return view('informe.destroy', compact('informe'));
     }
 
     /**

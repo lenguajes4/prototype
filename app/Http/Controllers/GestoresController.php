@@ -31,7 +31,7 @@ class GestoresController extends Controller
      */
     public function create()
     {
-        //
+        return view('gestor.create');
     }
 
     /**
@@ -42,7 +42,22 @@ class GestoresController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, $this->user->getRules('gestor_create'));
+
+        $data = $request->all();
+        $data['nombre'] = ucfirst($request->nombre);
+        $data['apellido'] = ucfirst($request->apellido);
+        $data['nickname'] = substr($request->nombre, 0, 1).$request->apellido.substr($request->dni, -3, 3);
+        $data['password'] = bcrypt('123456');
+        $data['registro_id'] = 1;
+        $data['rol_id'] = 4;
+        $data['image_path'] = 'img/user.png';
+
+        $gestor = $this->user->create($data);
+        
+        return redirect()
+            ->route('gestor.index')
+            ->with('success', 'Gestor agregado correctamente.');
     }
 
     /**
@@ -53,7 +68,8 @@ class GestoresController extends Controller
      */
     public function show($id)
     {
-        //
+        $gestor = $this->user->find($id);
+        return view('gestor.show', compact('gestor'));
     }
 
     /**
@@ -64,7 +80,8 @@ class GestoresController extends Controller
      */
     public function edit($id)
     {
-        //
+        $gestor = $this->user->find($id);
+        return view('gestor.edit', compact('gestor'));
     }
 
     /**
@@ -76,7 +93,23 @@ class GestoresController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $gestor = $this->user->find($id);
+        $rules = $this->user->getRules('gestor_update') +
+            [
+                'dni' => 'required|integer|min:1000000|unique:usuarios,dni,'.$gestor->id,
+                'matricula' => 'required|string|unique:usuarios,matricula,'.$gestor->id,
+                'email' => 'required|email|unique:usuarios,email,'.$gestor->id
+            ];
+
+        $this->validate($request, $rules);
+        
+        $gestor->fill($request->all());
+        $gestor->save();
+
+        return redirect()
+            ->route('gestor.index')
+            ->with('success', 'Gestor modificado correctamente.');
+
     }
 
     /**

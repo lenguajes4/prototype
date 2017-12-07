@@ -1,10 +1,10 @@
-<table class="table">
+<table class="table table-hover">
     <thead>
         <th>Jurisdicción</th>
-        <th>Año</th>
+        <th style="width: 30px">Año</th>
         <th>Periodos</th>
-        <th>$ aprox. c/u</th>
-        <th>Subtotal</th>
+        <th style="width: 90px">$ aprox. c/u</th>
+        <th style="width: 45px">Subtotal</th>
     </thead>
     <tbody>
         @foreach ($patentes as $patente)

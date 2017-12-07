@@ -23,6 +23,10 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Rutas para informes
     Route::resource('informe', 'InformesController');
+    Route::get(
+        'informe/{informe}/showDeleteForm',
+        ['as' => 'informe.showDeleteForm', 'uses' => 'InformesController@showDeleteForm']
+    );
 
     // Rutas para conceptos
     Route::resource('concepto', 'ConceptosController');

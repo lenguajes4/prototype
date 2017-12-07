@@ -18,12 +18,6 @@
 @endsection
 
 @section('content')
-    <div class="row" >
-        <div class="col-md-12">
-            <br>
-            @include('layouts.partials.success')
-        </div>
-    </div>
     <div class="row">
         <div class="col-md-4">
             <div class="box box-widget widget-user-2">
@@ -31,8 +25,8 @@
                     <div class="widget-user-image">
                         <img class="img-circle" src="{{ asset('img/bandera.png') }}">
                     </div>
-                    <h3 class="widget-user-username">{{ $informe->dominio }}</h3>
-                    <h5 class="widget-user-desc">{{ $informe->tipo_tramite }}</h5>
+                    <h3 class="widget-user-username">{{ $informe->vehiculo->dominio }}</h3>
+                    <h5 class="widget-user-desc">{{ $informe->tramite->nombre }}</h5>
                 </div>
                 <div class="box-footer no-padding">
                     <ul class="nav nav-stacked">
@@ -43,15 +37,31 @@
                         </li>
                         <li>
                             <a href="#">
-                                Gestor: <b>{{ $informe->gestor }}</b>
+                                Gestor: <b>{{ $informe->gestor->nombre_completo }}</b>
                             </a>
                         </li>
                         <li>
                             <a href="#">
-                                Estado: <b>{{ $informe->estado }}</b>
+                                Estado: <b>{{ $informe->estado->nombre }}</b>
                             </a>
                         </li>
                     </ul>
+                </div>
+                <div class="box-footer no-padding">
+                    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                        <a
+                            href="#modal-app"
+                            class="btn btn-danger"
+                            data-toggle="modal"
+                            data-url="{{ route('informe.showDeleteForm', $informe->id) }}">
+                            <i class="fa fa-trash"></i> Eliminar
+                        </a>
+                        <a
+                            href="#"
+                            class="btn btn-primary">
+                            <i class="fa fa-arrow-right"></i> Publicar
+                        </a>
+                    </div>
                 </div>
             </div>
             @include('conceptos.show')

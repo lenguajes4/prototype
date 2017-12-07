@@ -29,6 +29,12 @@
             @yield('content-header')
             
             <section class="content">
+                <div class="row" >
+                    <div class="col-md-12">
+                        <br>
+                        @include('layouts.partials.success')
+                    </div>
+                </div>
 
                 @yield('content')
                 

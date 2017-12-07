@@ -48,6 +48,6 @@
 </div>
 <div class="modal-footer">
     @yield('submit-form')
-    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancelar</button>
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 </div>
 @yield('close-form')

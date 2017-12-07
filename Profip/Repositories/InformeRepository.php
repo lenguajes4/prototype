@@ -37,7 +37,7 @@ class InformeRepository
         DB::transaction(function () use (&$data, &$informe, $vehiculo) {
             if (! $vehiculo) {
                 $vehiculo = Vehiculo::create([
-                    'dominio' => $data['dominio'],
+                    'dominio' => strtoupper($data['dominio']),
                     'tipo_vehiculo_id' => 1
                 ]);
             }

@@ -22,9 +22,25 @@
 @endsection
 
 @section('content')
+    @if ($errors->any())
+        <div class="alert alert-warning alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="row">
         <div class="col-xs-12">
-            <a href="{{ route('gestor.create') }}" class="btn btn-primary btn-flat">
+            <a
+                class="btn btn-primary btn-flat"
+                data-toggle="modal"
+                data-url="{{ route('gestor.create') }}"
+                href="#modal-app">
                 <i class="fa fa-external-link" aria-hidden="true"></i> Nuevo
             </a>
         </div>
@@ -40,6 +56,8 @@
                     <table id="gestores-table" class="table table-bordered table-striped">
                         <thead>
                             <tr>
+                                <th style="width: 7px;"></th>
+                                <th style="width: 7px;"></th>
                                 <th>Apellido y Nombre</th>
                                 <th>N° de trámites</th>
                                 <th>Teléfono</th>
@@ -48,9 +66,31 @@
                         <tbody>
                             @foreach ($gestores as $gestor)
                                 <tr>
-                                    <td>{{ $gestor->apellido.', '.$gestor->nombre }}</td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>
+                                        <a
+                                            data-toggle="modal"
+                                            data-url="{{ route('gestor.show', $gestor->id) }}"
+                                            title="Ver gestor"
+                                            href="#modal-app">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a
+                                            data-toggle="modal"
+                                            data-url="{{ route('gestor.edit', $gestor->id) }}"
+                                            title="Click para editar"
+                                            href="#modal-app">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('gestor.show', $gestor->id) }}">
+                                            {{ $gestor->nombre_completo }}
+                                        </a>
+                                    </td>
+                                    <td>{{ $gestor->informe->count() }}</td>
+                                    <td>{{ $gestor->telefono }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -59,13 +99,29 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal para agregar | modificar | mostrar gestores-->
+    <div class="modal fade" id="modal-app" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" id="modal-app-content"></div>
+        </div>
+    </div>
 @endsection
 
 @section('js')
+    <script src="{{ asset('js/jquery.inputmask.js') }}"></script>
+    <script src="{{ asset('js/jquery.inputmask.date.extensions.js') }}"></script>
+    <script src="{{ asset('js/viaAjaxLite.js') }}"></script>
     <script src="{{ asset('js/datatables.js') }}"></script>
     <script>
         $(document).ready(function() {
             $("#gestores-table").DataTable()
+            $('#modal-app').on('show.bs.modal', function (event) {
+                $.viaAjaxLite.load({
+                    target: '#modal-app-content',
+                    url: $(event.relatedTarget).data('url')
+                })
+            })
         })
     </script>
 @endsection
