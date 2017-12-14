@@ -27,6 +27,10 @@ Route::group(['middleware' => ['auth']], function () {
         'informe/{informe}/showDeleteForm',
         ['as' => 'informe.showDeleteForm', 'uses' => 'InformesController@showDeleteForm']
     );
+    Route::get(
+        'informe/{informe}/publicar',
+        ['as' => 'informe.publicar', 'uses' => 'InformesController@publicar']
+    );
 
     // Rutas para conceptos
     Route::resource('concepto', 'ConceptosController');
@@ -85,10 +89,21 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Rutas para gestores
     Route::resource('gestor', 'GestoresController');
-    Route::get('/mistramites', ['as' => 'gestor.dashboard', 'uses' => 'GestoresController@dashboard']);
+    Route::get(
+        '/mistramites',
+        ['as' => 'gestor.dashboard', 'uses' => 'GestoresController@dashboard']
+    );
+    Route::get(
+        '/ver-informe/{informe}',
+        ['as' => 'gestor.showInforme', 'uses' => 'GestoresController@showInforme']
+    );
     
     // Rutas para consultas
-    Route::resource('consultas', 'ConsultasController');
+    Route::resource('consulta', 'ConsultasController');
+    Route::get(
+        'consulta/{informe}/crear',
+        ['as' => 'consulta.create', 'uses' => 'ConsultasController@create']
+    );
 
     // Rutas para 
     // Route::resource('', 'Controller');

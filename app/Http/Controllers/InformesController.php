@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use Profip\Repositories\InformeRepository as Informe;
 use App\TipoTramite;
 use App\User;
-use App\Multa;
-use App\Patente;
 use Carbon\Carbon;
 
 class InformesController extends Controller
@@ -15,22 +13,16 @@ class InformesController extends Controller
     protected $informe = null;
     protected $tipo = null;
     protected $usuario = null;
-    protected $multa = null;
-    protected $patente = null;
 
     public function __construct(
         Informe $informe,
         TipoTramite $tipo,
-        User $usuario,
-        Multa $multa,
-        Patente $patente
+        User $usuario
     )
     {
         $this->informe = $informe;
         $this->tipo = $tipo;
         $this->usuario = $usuario;
-        $this->multa = $multa;
-        $this->patente = $patente;
     }
 
     /**
@@ -70,7 +62,13 @@ class InformesController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, $this->informe->rules['create']);
+        $rules = $this->informe->rules['create'];
+
+        if ($request->tipo_tramite_id != '1') {
+            $rules['dominio'] = 'required';
+        }
+
+        $this->validate($request, $rules);
         $informe = $this->informe->store($request->all());
         
         return redirect()
@@ -88,10 +86,9 @@ class InformesController extends Controller
     {
         $informe = $this->informe->find($id);
         $conceptos = $informe->conceptos;
-        $multas = $this->multa->where('vehiculo_id', $informe->vehiculo_id)->get();
-        $patentes = $this->patente->where('vehiculo_id', $informe->vehiculo_id)->get();
+        $multas = $informe->vehiculo->multas->sortBy('jurisdiccion_id');
+        $patentes = $informe->vehiculo->patentes->sortBy('jurisdiccion_id')->sortBy('year');
 
-        
         return view('informe.show', compact('informe', 'conceptos', 'multas', 'patentes'));
     }
 
@@ -105,17 +102,8 @@ class InformesController extends Controller
     {
         $informe = $this->informe->find($id);
         $conceptos = $informe->conceptos;
-
-        $multas = $this->multa
-            ->where('vehiculo_id', $informe->vehiculo_id)
-            ->orderBy('jurisdiccion_id')
-            ->get();
-
-        $patentes = $this->patente
-            ->where('vehiculo_id', $informe->vehiculo_id)
-            ->orderBy('jurisdiccion_id')
-            ->orderBy('year')
-            ->get();
+        $multas = $informe->vehiculo->multas->sortBy('jurisdiccion_id');
+        $patentes = $informe->vehiculo->patentes->sortBy('jurisdiccion_id')->sortBy('year');
         
         return view('informe.edit', compact('informe', 'conceptos', 'multas', 'patentes'));
     }
@@ -150,6 +138,23 @@ class InformesController extends Controller
         $informe->delete();
 
         return redirect('/')->with('success', 'Informe eliminado correctamente.');
+    }
+
+    /**
+     * Cambia el estado del informe.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function publicar($id)
+    {
+        $informe = $this->informe->find($id);
+        $informe->estado_tramite_id = 2;
+        $informe->save();
+
+        return redirect()
+            ->route('informe.index')
+            ->with('success', 'El informe ahora es visible para el gestor correspondiente.');
     }
 
     /**

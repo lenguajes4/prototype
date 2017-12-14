@@ -126,11 +126,31 @@ class GestoresController extends Controller
     /**
      * Muestra dashboard para gestores.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function dashboard()
     {
-        return view('gestor.dashboard');
+        $gestor = \Auth::user();
+        $informes = \App\Informe::where('usuario_id', $gestor->id)
+            ->where('estado_tramite_id', 2)//harcodeado estado publicado
+            ->get();
+
+        return view('gestor.dashboard.index', compact('informes'));
+    }
+
+    /**
+     * Muestra informe especifico al gestor.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showInforme($id)
+    {
+        $informe = \App\Informe::find($id);
+        $conceptos = $informe->conceptos;
+        $multas = $informe->vehiculo->multas->sortBy('jurisdiccion_id');
+        $patentes = $informe->vehiculo->patentes->sortBy('jurisdiccion_id')->sortBy('year');
+
+        return view('gestor.dashboard.informe', compact('informe', 'conceptos', 'multas', 'patentes'));
     }
 }

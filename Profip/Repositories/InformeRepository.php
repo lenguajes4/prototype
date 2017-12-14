@@ -12,10 +12,10 @@ class InformeRepository
 
     public $rules = [
         'create' => [
-            'dominio' => 'required',
             'numero_tramite' => 'required|integer|unique:informes',
             'tipo_tramite_id' => 'required|integer',
-            'usuario_id' => 'required|integer'
+            'usuario_id' => 'required|integer',
+            'registro_id' => 'required|integer'
         ],
         'update_baja' => [
             'provincia_baja_id' => 'required|integer',
@@ -32,12 +32,19 @@ class InformeRepository
     public function store($data)
     {
         $informe = null;
-        $vehiculo = Vehiculo::where('dominio', $data['dominio'])->first();
+        $vehiculo = null;
+
+        if (isset($data['dominio']) && $data['tipo_tramite_id'] != 1) {
+            $vehiculo = Vehiculo::where('dominio', $data['dominio'])->first();
+            $data['dominio'] = strtoupper($data['dominio']);
+        } else {
+            $data['dominio'] = 'N/D (0 Km)';
+        }
         
         DB::transaction(function () use (&$data, &$informe, $vehiculo) {
             if (! $vehiculo) {
                 $vehiculo = Vehiculo::create([
-                    'dominio' => strtoupper($data['dominio']),
+                    'dominio' => $data['dominio'],
                     'tipo_vehiculo_id' => 1
                 ]);
             }

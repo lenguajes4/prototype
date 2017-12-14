@@ -23,6 +23,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if (\Auth::user()->rol_id == 4) {
+            return redirect()->route('gestor.dashboard');
+        }
+
         return view('dashboard');
     }
 }

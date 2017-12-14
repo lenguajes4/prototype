@@ -3,9 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use App\Consulta;
+use App\Informe;
 
 class ConsultasController extends Controller
 {
+    protected $consulta = null;
+    protected $informe = null;
+
+    public function __construct(Consulta $consulta, Informe $informe)
+    {
+        $this->consulta = $consulta;
+        $this->informe = $informe;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -21,9 +32,10 @@ class ConsultasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $informe = $this->informe->find($id);
+        return view('gestor.dashboard.consultar', compact('informe'));
     }
 
     /**
@@ -34,7 +46,24 @@ class ConsultasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $informe = $this->informe->find($request->informe_id);
+        $data = $request->all();
+
+        if ($request->file('path')) {
+            $date = Carbon::now()->format('Y_m_d_h_i_s');
+            $file = $request->file('path');
+            $ext = '.'.$file->getClientOriginalExtension();
+            $registro = $informe->registro->codigo;
+            $tramite = $informe->numero_tramite;
+            $data['path'] = $registro.'_'.$tramite.'_'.$date.$ext;
+            \Storage::disk('local')->put($data['path'], \File::get($file));
+        }
+        
+        $this->consulta->create($data);
+
+        return redirect()
+            ->route('gestor.showInforme', $informe->id)
+            ->with('success', 'Consulta enviada correctamente.');
     }
 
     /**

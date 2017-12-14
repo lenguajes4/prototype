@@ -13,8 +13,10 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(App\User::class, function (Faker $faker) {
+$factory->define(App\User::class, function () {
     static $password;
+
+    $faker = \Faker\Factory::create('es_AR');
 
     return [
         'nombre' => $faker->firstName,
@@ -22,10 +24,53 @@ $factory->define(App\User::class, function (Faker $faker) {
         'nickname' => $faker->userName,
         'dni' => rand(12000000, 42000000),
         'email' => $faker->unique()->safeEmail,
-        'telefono' => '('.rand(386, 388).') '.rand(2, 7).'-'.rand(111111, 999999),
-        'password' => $password ?: $password = bcrypt('secret'),
+        'telefono' => '('.rand(386, 388).') '.rand(2, 7).'-'.rand(100000, 999999),
+        'password' => $password ?: $password = bcrypt('123456'),
         'remember_token' => str_random(10),
         'registro_id' => 1,
-        'rol_id' => 1
+        'rol_id' => 4
+    ];
+});
+
+$factory->define(App\Vehiculo::class, function (Faker $faker) {
+    return [
+        'dominio' => function () {
+            $alphas = range('a', 'z');
+            $selected = array_rand($alphas, 3);
+            $letters = $alphas[$selected[0]].$alphas[$selected[1]].$alphas[$selected[2]];
+            return strtoupper($letters.rand(100,999));
+        },
+        'tipo_vehiculo_id' => 1
+    ];
+});
+
+$factory->define(App\Informe::class, function (Faker $faker) {
+    return [
+        'estado_tramite_id' => rand(1, 3),
+        'tipo_tramite_id' => rand(2, 8),
+        'vehiculo_id' => factory(\App\Vehiculo::class)->create()->id,
+        'usuario_id' => rand(4, 53),
+        'registro_id' => rand(2, 8),
+        'numero_tramite' => rand(1000, 5000),
+        'observaciones' => function () {
+            $options = rand(1, 4);
+            switch ($options) {
+                case 1:
+                    return 'Falta firma de consentimiento de conyuge.';
+                    break;
+                case 2:
+                    return 'Debe comprobante de cancelación de prenda.';
+                    break;
+                case 3:
+                    return 'Debe abonar diferencia de arancel.';
+                    break;
+                case 4:
+                    return null;
+                    break;
+                default:
+                    return null;
+                    break;
+            }
+        }
     ];
 });

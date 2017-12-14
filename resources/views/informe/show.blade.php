@@ -93,42 +93,44 @@
                     @include('conceptos.detail')
                 @endif
             </div>
-            <div class="box box-widget">
-                <div class="box-header with-border">
-                    <div class="user-block">
-                        <img class="img-circle" src="{{ asset('img/info.png') }}">
-                        <span class="username text-light-blue">Multas</span>
-                        <span class="description">
-                            Datos obtenidos del sistema de multas.
-                        </span>
+            @if ($informe->tipo_tramite_id != 1)
+                <div class="box box-widget">
+                    <div class="box-header with-border">
+                        <div class="user-block">
+                            <img class="img-circle" src="{{ asset('img/info.png') }}">
+                            <span class="username text-light-blue">Multas</span>
+                            <span class="description">
+                                Datos obtenidos del sistema de multas.
+                            </span>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        @if (!empty($multas->toArray()))
+                            @include('multas.detail')
+                        @else
+                            No se registraron infracciones en el sistema de multas.
+                        @endif
                     </div>
                 </div>
-                <div class="box-body">
-                    @if (!empty($multas->toArray()))
-                        @include('multas.detail')
-                    @else
-                        No se registraron infracciones en el sistema de multas.
-                    @endif
-                </div>
-            </div>
-            <div class="box box-widget">
-                <div class="box-header with-border">
-                    <div class="user-block">
-                        <img class="img-circle" src="{{ asset('img/car.png') }}">
-                        <span class="username text-light-blue">Patentes</span>
-                        <span class="description">
-                            Datos obtenidos del sistema de patentes.
-                        </span>
+                <div class="box box-widget">
+                    <div class="box-header with-border">
+                        <div class="user-block">
+                            <img class="img-circle" src="{{ asset('img/car.png') }}">
+                            <span class="username text-light-blue">Patentes</span>
+                            <span class="description">
+                                Datos obtenidos del sistema de patentes.
+                            </span>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        @if (!empty($patentes->toArray()))
+                            @include('patentes.detail')
+                        @else
+                            Sin periodos adeudados en el sistema de patentes.
+                        @endif
                     </div>
                 </div>
-                <div class="box-body">
-                    @if (!empty($patentes->toArray()))
-                        @include('patentes.detail')
-                    @else
-                        Sin periodos adeudados en el sistema de patentes.
-                    @endif
-                </div>
-            </div>
+            @endif
         </div>
     </div>
 

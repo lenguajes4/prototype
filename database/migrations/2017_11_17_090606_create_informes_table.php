@@ -19,6 +19,7 @@ class CreateInformesTable extends Migration
             $table->integer('tipo_tramite_id')->unsigned();
             $table->integer('vehiculo_id')->unsigned();
             $table->integer('usuario_id')->unsigned();
+            $table->integer('registro_id')->unsigned();
             $table->integer('numero_tramite')->unique()->unsigned();
             $table->text('observaciones')->nullable()->default(null);
             $table->timestamps();
@@ -29,6 +30,7 @@ class CreateInformesTable extends Migration
             $table->foreign('tipo_tramite_id')->references('id')->on('tipos_tramite');
             $table->foreign('vehiculo_id')->references('id')->on('vehiculos');
             $table->foreign('usuario_id')->references('id')->on('usuarios');
+            $table->foreign('registro_id')->references('id')->on('registros');
         });
     }
 

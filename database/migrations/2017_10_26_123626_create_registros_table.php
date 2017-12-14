@@ -19,7 +19,7 @@ class CreateRegistrosTable extends Migration
             $table->string('nombre');
             $table->string('domicilio');
             $table->string('telefono');
-            $table->string('fax');
+            $table->string('fax')->nullable();
             $table->timestamps();
         });
     }

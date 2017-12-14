@@ -13,9 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         Eloquent::unguard();
         Schema::disableForeignKeyConstraints();
-
         
-
         $this->call('RolesTableSeeder');
         $this->call('RegistrosTableSeeder');
         $this->call('UsuariosTableSeeder');
@@ -25,7 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call('TiposVehiculoTableSeeder');
         $this->call('JurisdiccionesTableSeeder');
 
-        $this->call('FactoriesTableSeeder');
+        //$this->call('FactoriesTableSeeder');
 
         Schema::enableForeignKeyConstraints();
     }

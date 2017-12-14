@@ -26,7 +26,7 @@
             </a>
         </li>
         <li class="{{ (Request::is('consultas'))? 'active' : '' }}">
-            <a href="{{ route('consultas.index') }}">
+            <a href="{{ route('consulta.index') }}">
                 <i class="fa fa-envelope-o"></i> <span>Consultas</span>
             </a>
         </li>

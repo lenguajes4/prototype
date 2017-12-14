@@ -45,6 +45,9 @@
             ]
         )
     }}
+
+    {{ Form::hidden('registro_id', \Auth::user()->registro_id) }}
+
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <div class="box box-primary">
@@ -53,6 +56,23 @@
                 </div>
                 <div class="box-body">
                     <div class="form-group">
+                        {{ Form::label('tipo', 'Tipo de trámite:', ['class' => 'col-md-4 control-label']) }}
+                        <div class="col-sm-8">
+                            {{
+                                Form::select(
+                                    'tipo_tramite_id',
+                                    ['' => 'Seleccionar tipo de trámite...'] + $tipos,
+                                    null,
+                                    [
+                                        'class' => 'form-control select2',
+                                        'id' => 'tipo_tramite',
+                                        'required'
+                                    ]
+                                )
+                            }}
+                        </div>
+                    </div>
+                    <div class="form-group" id="dominio">
                         {{ Form::label('dominio', 'Dominio:', ['class' => 'col-sm-4 control-label']) }}
                         <div class="col-sm-8">
                             {{
@@ -77,22 +97,6 @@
                                     null,
                                     [
                                         'class' => 'form-control',
-                                        'required'
-                                    ]
-                                )
-                            }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ Form::label('tipo', 'Tipo de trámite:', ['class' => 'col-md-4 control-label']) }}
-                        <div class="col-sm-8">
-                            {{
-                                Form::select(
-                                    'tipo_tramite_id',
-                                    ['' => 'Seleccionar tipo de trámite...'] + $tipos,
-                                    null,
-                                    [
-                                        'class' => 'form-control select2',
                                         'required'
                                     ]
                                 )
@@ -137,6 +141,16 @@
     <script>
         $(document).ready(function() {
             $(".select2").select2()
+            $('#tipo_tramite').change(function () {
+                let type = $('#tipo_tramite').val()
+                if (type === '1') {
+                    $("input[name=dominio]").prop('disabled', true)
+                    $("#dominio").hide()
+                } else {
+                    $("input[name=dominio]").prop('disabled', false)
+                    $("#dominio").show()
+                }
+            })
         })
     </script>
 @endsection

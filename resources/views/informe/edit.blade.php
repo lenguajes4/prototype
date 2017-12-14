@@ -57,7 +57,7 @@
                             <i class="fa fa-trash"></i> Eliminar
                         </a>
                         <a
-                            href="#"
+                            href="{{ route('informe.publicar', $informe->id) }}"
                             class="btn btn-primary">
                             <i class="fa fa-arrow-right"></i> Publicar
                         </a>
@@ -65,7 +65,11 @@
                 </div>
             </div>
             @include('conceptos.show')
-            @include('baja.show')
+            
+            @if ($informe->tipo_tramite_id != 1)
+                @include('baja.show')
+            @endif
+            
         </div>
         <div class="col-md-8">
             <div class="box box-widget">
@@ -110,8 +114,12 @@
                     {{ Form::close() }}
                 </div>
             </div>
-            @include('multas.show')
-            @include('patentes.show')
+
+            @if ($informe->tipo_tramite_id != 1)
+                @include('multas.show')
+                @include('patentes.show')
+            @endif
+
         </div>
     </div>
 
