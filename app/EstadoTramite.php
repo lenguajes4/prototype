@@ -8,7 +8,5 @@ class EstadoTramite extends Model
 {
     protected $table = 'estados_tramite';
 
-    protected $fillable = [
-        'nombre', 'codigo', 'descripcion'
-    ];
+    protected $fillable = ['nombre', 'codigo', 'descripcion'];
 }

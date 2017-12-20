@@ -85,7 +85,11 @@
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="{{ route('gestor.show', $gestor->id) }}">
+                                        <a
+                                            data-toggle="modal"
+                                            data-url="{{ route('gestor.show', $gestor->id) }}"
+                                            title="Ver gestor"
+                                            href="#modal-app">
                                             {{ $gestor->nombre_completo }}
                                         </a>
                                     </td>

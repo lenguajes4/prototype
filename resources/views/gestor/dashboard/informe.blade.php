@@ -100,8 +100,9 @@
         <div class="media">
             @if ($consulta->path)
                 <div class="media-left">
-                    <a href="#">
-                        <img class="media-object" src="...">
+                    <a
+                        href="#">
+                        <img class="media-object" src="/img/consultas/{{ $consulta->path }}" width="64" height="64">
                     </a>
                 </div>
             @endif

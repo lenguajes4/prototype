@@ -104,6 +104,18 @@ Route::group(['middleware' => ['auth']], function () {
         'consulta/{informe}/crear',
         ['as' => 'consulta.create', 'uses' => 'ConsultasController@create']
     );
+    Route::get(
+        'consultas-pendientes',
+        ['as' => 'consulta.showPendientes', 'uses' => 'ConsultasController@showPendientes']
+    );
+    Route::get(
+        'consultas-respondidas',
+        ['as' => 'consulta.showRespondidas', 'uses' => 'ConsultasController@showRespondidas']
+    );
+    Route::get(
+        'consultas-borrador',
+        ['as' => 'consulta.showBorrador', 'uses' => 'ConsultasController@showBorrador']
+    );
 
     // Rutas para 
     // Route::resource('', 'Controller');

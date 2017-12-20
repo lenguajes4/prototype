@@ -11,20 +11,33 @@ class ConsultasController extends Controller
 {
     protected $consulta = null;
     protected $informe = null;
+    protected $byReg = null;
 
     public function __construct(Consulta $consulta, Informe $informe)
     {
         $this->consulta = $consulta;
         $this->informe = $informe;
+
+        $this->middleware(function ($request, $next) {
+            $this->byReg = $this->consulta->where('registro_id', \Auth::user()->registro_id);
+            return $next($request);
+        });
     }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('consultas.index');
+        $consultas = $this->byReg->paginate(20);
+
+        if ($request->ajax()) {
+            return response()->json(view('consultas.load', compact('consultas'))->render());
+        }
+
+        return view('consultas.inbox', compact('consultas'));
     }
 
     /**
@@ -58,6 +71,7 @@ class ConsultasController extends Controller
             $data['path'] = $registro.'_'.$tramite.'_'.$date.$ext;
             \Storage::disk('local')->put($data['path'], \File::get($file));
         }
+        $data['registro_id'] = $informe->registro_id;
         
         $this->consulta->create($data);
 
@@ -74,7 +88,9 @@ class ConsultasController extends Controller
      */
     public function show($id)
     {
-        //
+        $consulta = $this->consulta->find($id);
+
+        return view('consultas.show', compact('consulta'));
     }
 
     /**
@@ -109,5 +125,56 @@ class ConsultasController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showPendientes(Request $request)
+    {
+        $consultas = $this->byReg->estado(1)->paginate(20);
+
+        if ($request->ajax()) {
+            return response()->json(view('consultas.load', compact('consultas'))->render());
+        }
+
+        return view('consultas.pendientes', compact('consultas'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showBorrador(Request $request)
+    {
+        $consultas = $this->byReg->estado(2)->paginate(20);
+
+        if ($request->ajax()) {
+            return response()->json(view('consultas.load', compact('consultas'))->render());
+        }
+
+        return view('consultas.borrador', compact('consultas'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showRespondidas(Request $request)
+    {
+        $consultas = $this->byReg->estado(3)->paginate(20);
+
+        if ($request->ajax()) {
+            return response()->json(view('consultas.load', compact('consultas'))->render());
+        }
+
+        return view('consultas.respondidas', compact('consultas'));
     }
 }

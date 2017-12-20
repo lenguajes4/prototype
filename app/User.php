@@ -65,4 +65,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(\App\Informe::class, 'usuario_id');
     }
+
+    public function registro()
+    {
+        return $this->belongsTo(\App\Registro::class, 'registro_id');
+    }
 }

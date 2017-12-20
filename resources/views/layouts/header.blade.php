@@ -31,7 +31,7 @@
                                     <a href="#">
                                         <div class="pull-left">
                                             <!-- User Image -->
-                                            <img src="/{{ Auth::user()->image_path }}" class="img-circle" alt="User Image">
+                                            <img src="/img/users/{{ Auth::user()->image_path }}" class="img-circle" alt="User Image">
                                         </div>
                                         <!-- Message title and timestamp -->
                                         <h4>
@@ -122,39 +122,29 @@
                     <!-- Menu Toggle Button -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <!-- The user image in the navbar-->
-                    <img src="/{{ Auth::user()->image_path }}" class="user-image" alt="{{ Auth::user()->nickname }}">
+                    <img src="/img/users/{{ Auth::user()->image_path }}" class="user-image" alt="{{ Auth::user()->nickname }}">
                     <!-- hidden-xs hides the username on small devices so only the image appears. -->
                     <span class="hidden-xs">{{ Auth::user()->nombre_completo }}</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- The user image in the menu -->
                         <li class="user-header">
-                            <img src="/{{ Auth::user()->image_path }}" class="img-circle" alt="{{ Auth::user()->nickname }}">
+                            <img src="/img/users/{{ Auth::user()->image_path }}" class="img-circle" alt="{{ Auth::user()->nickname }}">
                             <p>
-                                {{ Auth::user()->nombre_completo }} - {{ Auth::user()->rol->titulo }}
-                                <small>$user->organization</small>
+                                {{ Auth::user()->nombre_completo }}
+                                {{ Auth::user()->rol->nombre }}
+                                <small>
+                                    {{ Auth::user()->registro->codigo.' - '.Auth::user()->registro->nombre }}
+                                </small>
                             </p>
                         </li>
-                        <!-- Menu Body -->
+                        <!-- Menu Body 
                         <li class="user-body">
-                            <div class="row">
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">Followers</a>
-                                </div>
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">Sales</a>
-                                </div>
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">Friends</a>
-                                </div>
-                            </div>
-                            <!-- /.row -->
+                            //
                         </li>
+                        -->
                         <!-- Menu Footer-->
                         <li class="user-footer">
-                            <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">Profile</a>
-                            </div>
                             <div class="pull-right">
                                 <a
                                     href="{{ route('logout') }}"

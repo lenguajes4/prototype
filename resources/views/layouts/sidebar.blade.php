@@ -1,7 +1,7 @@
 <section class="sidebar">
     <div class="user-panel">
         <div class="pull-left image">
-            <img src="/{{ Auth::user()->image_path }}" class="img-circle" alt="User Image">
+            <img src="/img/users/{{ Auth::user()->image_path }}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
             <p>{{ Auth::user()->nickname }}</p>

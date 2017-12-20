@@ -28,7 +28,8 @@ $factory->define(App\User::class, function () {
         'password' => $password ?: $password = bcrypt('123456'),
         'remember_token' => str_random(10),
         'registro_id' => 1,
-        'rol_id' => 4
+        'rol_id' => 4,
+        'image_path' => 'user.png'
     ];
 });
 
@@ -72,5 +73,24 @@ $factory->define(App\Informe::class, function (Faker $faker) {
                     break;
             }
         }
+    ];
+});
+
+$factory->define(App\Consulta::class, function (Faker $faker) {
+    $informe = factory(App\Informe::class)->make();
+    
+    repeat_inf:
+    try {
+        $informe->save();
+    } catch (\Illuminate\Database\QueryException $e) {
+        $informe = factory(App\Informe::class)->make();
+        goto repeat_inf;
+    }
+    
+    return [
+        'informe_id' => $informe->id,
+        'registro_id' => $informe->registro->id,
+        'estado_consulta_id' => rand(1, 3),
+        'consulta' => $faker->text(200),
     ];
 });
