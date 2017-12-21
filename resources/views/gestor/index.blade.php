@@ -103,29 +103,10 @@
             </div>
         </div>
     </div>
-
-    <!-- Modal para agregar | modificar | mostrar gestores-->
-    <div class="modal fade" id="modal-app" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" id="modal-app-content"></div>
-        </div>
-    </div>
 @endsection
 
 @section('js')
     <script src="{{ asset('js/jquery.inputmask.js') }}"></script>
     <script src="{{ asset('js/jquery.inputmask.date.extensions.js') }}"></script>
-    <script src="{{ asset('js/viaAjaxLite.js') }}"></script>
     <script src="{{ asset('js/datatables.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-            $("#gestores-table").DataTable()
-            $('#modal-app').on('show.bs.modal', function (event) {
-                $.viaAjaxLite.load({
-                    target: '#modal-app-content',
-                    url: $(event.relatedTarget).data('url')
-                })
-            })
-        })
-    </script>
 @endsection
