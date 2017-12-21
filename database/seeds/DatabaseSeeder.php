@@ -11,6 +11,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        Eloquent::unguard();
+        Schema::disableForeignKeyConstraints();
+        
+        $this->call('RolesTableSeeder');
+        $this->call('RegistrosTableSeeder');
+        $this->call('UsuariosTableSeeder');
+        $this->call('ProvinciasTableSeeder');
+        $this->call('TiposTramiteTableSeeder');
+        $this->call('EstadosTramiteTableSeeder');
+        $this->call('TiposVehiculoTableSeeder');
+        $this->call('JurisdiccionesTableSeeder');
+        $this->call('EstadosConsultaTableSeeder');
+
+        $this->call('FactoriesTableSeeder');
+
+        Schema::enableForeignKeyConstraints();
     }
 }
