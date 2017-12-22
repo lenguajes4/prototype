@@ -82,7 +82,9 @@
     <script src="{{ asset('js/datatables.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $("#informe-table").DataTable()
+            $("#informe-table").DataTable({
+                'ordering' : false
+            })
         })
     </script>
 @endsection

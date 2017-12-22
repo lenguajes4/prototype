@@ -41,7 +41,7 @@
         </div>
     </div>
     <div class="table-responsive mailbox-messages">
-        <table class="table table-hover table-striped">
+        <table id="consultas-table" class="table table-hover table-striped">
             <tbody>
                 @forelse ($consultas as $consulta)
                     <tr>
@@ -63,7 +63,7 @@
                             @endif
                         </td>
                         <td>
-                            {{ $consulta->estado->nombre }}
+                            {{ $consulta->estado }}
                         </td>
                         <td class="mailbox-date">
                             {{ $consulta->created_at->diffForHumans() }}

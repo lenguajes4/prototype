@@ -17,10 +17,9 @@ class CreateConsultasTable extends Migration
             $table->increments('id');
             $table->integer('informe_id')->unsigned();
             $table->integer('registro_id')->unsigned();
-            $table->integer('estado_consulta_id')->unsigned();
+            $table->integer('usuario_asistente_id')->nullable();
             $table->text('consulta');
             $table->text('respuesta')->nullable();
-            $table->boolean('visto')->default(false);
             $table->string('path')->nullable();
             $table->timestamps();
         });
@@ -28,7 +27,6 @@ class CreateConsultasTable extends Migration
         Schema::table('consultas', function($table) {
             $table->foreign('informe_id')->references('id')->on('informes')->onDelete('cascade');
             $table->foreign('registro_id')->references('id')->on('registros');
-            $table->foreign('estado_consulta_id')->references('id')->on('estados_consulta');
         });
     }
 

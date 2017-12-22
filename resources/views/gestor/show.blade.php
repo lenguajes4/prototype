@@ -1,5 +1,6 @@
 <div class="box box-widget widget-user">
     <div class="widget-user-header bg-aqua-active">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h3 class="widget-user-username">{{ $gestor->nombre_completo }}</h3>
         <h5 class="widget-user-desc">Matrícula: {{ $gestor->matricula }}</h5>
     </div>

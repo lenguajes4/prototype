@@ -77,20 +77,34 @@ $factory->define(App\Informe::class, function (Faker $faker) {
 });
 
 $factory->define(App\Consulta::class, function (Faker $faker) {
-    $informe = factory(App\Informe::class)->make();
+    $informe = factory(App\Informe::class)->make(['estado_tramite_id' => rand(2, 3)]);
     
     repeat_inf:
     try {
         $informe->save();
     } catch (\Illuminate\Database\QueryException $e) {
-        $informe = factory(App\Informe::class)->make();
+        $informe = factory(App\Informe::class)->make(['estado_tramite_id' => rand(2, 3)]);
         goto repeat_inf;
     }
     
     return [
         'informe_id' => $informe->id,
         'registro_id' => $informe->registro->id,
-        'estado_consulta_id' => rand(1, 3),
         'consulta' => $faker->text(200),
+        'respuesta' => function () use ($faker) {
+            $rta = rand(0, 1);
+            switch ($rta) {
+                case 0:
+                    return null;
+                    break;
+                case 1:
+                    return $faker->text(200);
+                    break;
+                default:
+                    return null;
+                    break;
+            }
+        },
+        'usuario_asistente_id' => rand(1, 3)
     ];
 });

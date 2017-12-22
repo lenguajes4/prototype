@@ -3,14 +3,17 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Profip\Traits\DatesTraslator;
 
 class Informe extends Model
 {
+    use DatesTraslator;
+    
     protected $table = 'informes';
 
     protected $fillable = [
         'estado_tramite_id', 'tipo_tramite_id', 'vehiculo_id', 'usuario_id', 'registro_id',
-        'numero_tramite', 'observaciones'
+        'numero_tramite', 'observaciones', 'fecha_retiro', 'nota_retiro'
     ];
 
     public function vehiculo()

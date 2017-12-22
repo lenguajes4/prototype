@@ -9,6 +9,8 @@
         ]
     )
 }}
+    {{ Form::hidden('estado_consulta_id', 1) }}
+    
     <div class="panel panel-default">
         <div class="panel-body">
             Si tiene alguna consulta sobre el trámite

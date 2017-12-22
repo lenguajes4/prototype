@@ -11,7 +11,7 @@ class Consulta extends Model
 
     protected $table = 'consultas';
     protected $fillable = [
-        'informe_id', 'registro_id', 'estado_consulta_id', 'consulta', 'respuesta', 'path'
+        'informe_id', 'registro_id', 'usuario_asistente_id', 'consulta', 'respuesta', 'path'
     ];
 
     public function registro()
@@ -24,21 +24,17 @@ class Consulta extends Model
         return $this->belongsTo(\App\Informe::class, 'informe_id');
     }
 
-    public function estado()
+    public function asistente()
     {
-        return $this->belongsTo(\App\EstadoConsulta::class, 'estado_consulta_id');
+        return $this->belongsTo(\App\User::class, 'usuario_asistente_id');
+
     }
 
-    public function scopeEstado($query, $estado)
+    public function getEstadoAttribute()
     {
-        if ($estado) {
-            return $query->where('estado_consulta_id', $estado);
+        if ($this->respuesta) {
+            return 'respondida';
         }
-        return $query;
-    }
-
-    public function pendientes()
-    {
-        return $this->where('estado_consulta_id', 1);
+        return 'pendiente';
     }
 }

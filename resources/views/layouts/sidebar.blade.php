@@ -15,7 +15,7 @@
                 <i class="fa fa-home"></i> <span>Inicio</span>
             </a>
         </li>
-        <li class="{{ (Request::is('informe'))? 'active' : '' }}">
+        <li class="{{ (Request::is('informe') || Request::is('informe/*'))? 'active' : '' }}">
             <a href="{{ route('informe.index') }}">
                 <i class="fa fa-file-text-o"></i> <span>Informes</span>
             </a>
@@ -25,7 +25,7 @@
                 <i class="fa fa-user-circle-o"></i> <span>Gestores</span>
             </a>
         </li>
-        <li class="{{ (Request::is('consultas'))? 'active' : '' }}">
+        <li class="{{ (Request::is('consultas/*') || Request::is('consulta') || Request::is('consulta/*'))?'active':'' }}">
             <a href="{{ route('consulta.index') }}">
                 <i class="fa fa-envelope-o"></i> <span>Consultas</span>
             </a>

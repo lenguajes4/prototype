@@ -47,7 +47,7 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="{{ (Request::is('consultas-pendientes'))? 'active' : '' }}">
+                        <li class="{{ (Request::is('consultas/pendientes'))? 'active' : '' }}">
                             <a href="{{ route('consulta.showPendientes') }}">
                                 <i class="fa fa-envelope-o"></i> Pendientes
                                 <span class="label label-danger pull-right">
@@ -55,19 +55,11 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="{{ (Request::is('consultas-respondidas'))? 'active' : '' }}">
+                        <li class="{{ (Request::is('consultas/respondidas'))? 'active' : '' }}">
                             <a href="{{ route('consulta.showRespondidas') }}">
                                 <i class="fa fa-paper-plane-o"></i> Respondidas
                                 <span class="label label-success pull-right">
                                     {{ \Auth::user()->registro->consultas_respondidas_count }}
-                                </span>
-                            </a>
-                        </li>
-                        <li class="{{ (Request::is('consultas-borrador'))? 'active' : '' }}">
-                            <a href="{{ route('consulta.showBorrador') }}">
-                                <i class="fa fa-file-text-o"></i> Borradores
-                                <span class="label label-warning pull-right">
-                                    {{ \Auth::user()->registro->consultas_borrador_count }}
                                 </span>
                             </a>
                         </li>
@@ -76,6 +68,18 @@
             </div>
         </div>
         <div class="col-md-9">
+            @if ($errors->any())
+                <div class="alert alert-warning alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             @yield('mailbox')
         </div>
     </div>
