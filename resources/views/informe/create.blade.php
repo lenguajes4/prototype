@@ -22,29 +22,15 @@
 @endsection
 
 @section('content')
-
-    @if ($errors->any())
-        <div class="alert alert-warning alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    {{
-        Form::open(
-            [
-                'route' => ['informe.store'],
-                'method' => 'post',
-                'class' => 'form-horizontal' 
-            ]
-        )
-    }}
+{{
+    Form::open(
+        [
+            'route' => ['informe.store'],
+            'method' => 'post',
+            'class' => 'form-horizontal' 
+        ]
+    )
+}}
 
     {{ Form::hidden('registro_id', \Auth::user()->registro_id) }}
 
@@ -133,7 +119,7 @@
             </div>
         </div>
     </div>
-    {{ Form::close() }}
+{{ Form::close() }}
 @endsection
 
 @section('js')

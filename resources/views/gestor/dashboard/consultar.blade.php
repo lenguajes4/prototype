@@ -38,7 +38,7 @@
                 }}
             </div>
 
-            {{ Form::file('path', ['id' => 'path']) }}
+            {{ Form::file('path', ['id' => 'path', 'accept' => '.jpg, .jpeg, .png']) }}
             <p class="help-block">
                 <button class="btn btn-default btn-xs" type="button" id="clear">Limpiar archivo</button>
             </p>

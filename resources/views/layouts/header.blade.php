@@ -1,150 +1,107 @@
 <header class="main-header">
-    <!-- Logo -->
     <a href="#" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>A</b>LT</span>
+        <span class="logo-mini">SIET</span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>Admin</b>LTE</span>
+        <span class="logo-lg">SIET</span>
     </a>
-    <!-- Header Navbar -->
     <nav class="navbar navbar-static-top" role="navigation">
-        <!-- Sidebar toggle button-->
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
         </a>
-        <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-            <!-- Messages: style can be found in dropdown.less-->
                 <li class="dropdown messages-menu">
-                <!-- Menu toggle button -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-envelope-o"></i>
-                        <span class="label label-success">4</span>
+                        <span class="label label-success">
+                            {{ \Auth::user()->registro->consultas_pendientes_count }}
+                        </span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="header">You have 4 messages</li>
+                        <li class="header">Nuevas consultas</li>
                         <li>
-                            <!-- inner menu: contains the messages -->
                             <ul class="menu">
-                                <li><!-- start message -->
-                                    <a href="#">
-                                        <div class="pull-left">
-                                            <!-- User Image -->
-                                            <img src="/img/users/{{ Auth::user()->image_path }}" class="img-circle" alt="User Image">
-                                        </div>
-                                        <!-- Message title and timestamp -->
-                                        <h4>
-                                        Support Team
-                                        <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                                        </h4>
-                                        <!-- The message -->
-                                        <p>Why not buy a new awesome theme?</p>
+                                <li>
+                                    <a href="{{ route('consulta.showPendientes') }}">
+                                        <i class="fa fa-envelope-o text-aqua"></i>
+                                        {{ \Auth::user()->registro->consultas_pendientes_count }}
+                                        consultas esperando respuesta.
                                     </a>
                                 </li>
-                            <!-- end message -->
-                            </ul>
-                        <!-- /.menu -->
-                        </li>
-                        <li class="footer"><a href="#">See All Messages</a></li>
-                    </ul>
-                </li>
-                <!-- /.messages-menu -->
-
-                <!-- Notifications Menu -->
-                <li class="dropdown notifications-menu">
-                    <!-- Menu toggle button -->
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-bell-o"></i>
-                        <span class="label label-warning">10</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="header">You have 10 notifications</li>
-                        <li>
-                            <!-- Inner Menu: contains the notifications -->
-                            <ul class="menu">
-                                <li><!-- start notification -->
-                                    <a href="#">
-                                        <i class="fa fa-users text-aqua"></i>&nbsp;
-                                        5 new members joined today
-                                    </a>
-                                </li>
-                                <!-- end notification -->
-                            </ul>
-                        </li>
-                        <li class="footer"><a href="#">View all</a></li>
-                    </ul>
-                </li>
-                <!-- Tasks Menu -->
-                <li class="dropdown tasks-menu">
-                    <!-- Menu Toggle Button -->
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-flag-o"></i>
-                        <span class="label label-danger">9</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="header">You have 9 tasks</li>
-                        <li>
-                            <!-- Inner menu: contains the tasks -->
-                            <ul class="menu">
-                                <li><!-- Task item -->
-                                    <a href="#">
-                                        <!-- Task title and progress text -->
-                                        <h3>
-                                            Design some buttons
-                                            <small class="pull-right">20%</small>
-                                        </h3>
-                                        <!-- The progress bar -->
-                                        <div class="progress xs">
-                                            <!-- Change the css width attribute to simulate progress -->
-                                            <div
-                                                class="progress-bar progress-bar-aqua"
-                                                style="width: 20%"
-                                                role="progressbar"
-                                                aria-valuenow="20"
-                                                aria-valuemin="0"
-                                                saria-valuemax="100">
-                                                <span class="sr-only">20% Complete</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <!-- end task item -->
                             </ul>
                         </li>
                         <li class="footer">
-                            <a href="#">View all tasks</a>
+                            <a href="{{ route('consulta.index') }}">Ir a consultas</a>
                         </li>
                     </ul>
                 </li>
-                <!-- User Account Menu -->
-                <li class="dropdown user user-menu">
-                    <!-- Menu Toggle Button -->
+                <li class="dropdown notifications-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <!-- The user image in the navbar-->
-                    <img src="/img/users/{{ Auth::user()->image_path }}" class="user-image" alt="{{ Auth::user()->nickname }}">
-                    <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                    <span class="hidden-xs">{{ Auth::user()->nombre_completo }}</span>
+                        <i class="fa fa-bell-o"></i>
+                        <span class="label label-warning">1</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <!-- The user image in the menu -->
+                        <li class="header">Gestores agregados</li>
+                        <li>
+                            <ul class="menu">
+                                <li>
+                                    <a href="#">
+                                        <i class="fa fa-users text-aqua"></i>&nbsp;
+                                        5 nuevos gestores agregados al sistema
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="footer">
+                            <a href="{{ route('gestor.index') }}">Ver listado de gestores</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown tasks-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-flag-o"></i>
+                        <span class="label label-danger">1</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="header">Novedades del sistema</li>
+                        <li>
+                            <ul class="menu">
+                                <li>
+                                    <a href="#">
+                                        <i class="fa fa-check-square-o text-success"></i>&nbsp;
+                                        Nueva jurisdicción agregada en el sistema de patentes.
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="footer">
+                            <a href="#">Ver todas las novedades</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown user user-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="/img/users/{{ Auth::user()->image_path }}" class="user-image" alt="{{ Auth::user()->nickname }}">
+                        <span class="hidden-xs">{{ Auth::user()->nombre_completo }}</span>
+                    </a>
+                    <ul class="dropdown-menu">
                         <li class="user-header">
                             <img src="/img/users/{{ Auth::user()->image_path }}" class="img-circle" alt="{{ Auth::user()->nickname }}">
                             <p>
                                 {{ Auth::user()->nombre_completo }}
-                                {{ Auth::user()->rol->nombre }}
                                 <small>
                                     {{ Auth::user()->registro->codigo.' - '.Auth::user()->registro->nombre }}
                                 </small>
                             </p>
                         </li>
-                        <!-- Menu Body 
-                        <li class="user-body">
+                        {{-- <li class="user-body">
                             //
-                        </li>
-                        -->
-                        <!-- Menu Footer-->
+                        </li> --}}
                         <li class="user-footer">
+                            <div class="pull-left">
+                                <a href="#" class="btn btn-default btn-flat">Perfil</a>
+                            </div>
                             <div class="pull-right">
                                 <a
                                     href="{{ route('logout') }}"
@@ -161,10 +118,11 @@
                         </li>
                     </ul>
                 </li>
-                <!-- Control Sidebar Toggle Button -->
-                <li>
-                    <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                </li>
+                @if (Auth::user()->rol->codigo == 'ADM')
+                    <li>
+                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                    </li>
+                @endif
             </ul>
         </div>
     </nav>

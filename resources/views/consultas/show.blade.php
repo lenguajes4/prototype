@@ -96,7 +96,9 @@
                     <dd>{{ $consulta->asistente->nombre_completo }}</dd>
 
                     <dt>Fecha de respuesta:</dt>
-                    <dd>{{ ucfirst($consulta->updated_at->format('l, j \\d\\e F \\d\\e Y - G:i')) }}</dd>
+                    <dd>
+                        {{ ucfirst($consulta->updated_at->format('l, j \d\e F \d\e Y \a \l\a\s G:i')) }}
+                    </dd>
                 </dl>
             </div>
         @else

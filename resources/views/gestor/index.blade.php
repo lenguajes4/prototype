@@ -111,7 +111,14 @@
     <script src="{{ asset('js/datatables.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('#gestores-table').DataTable()
+            $('#gestores-table').DataTable({
+                "language": {
+                    "paginate": {
+                        "previous": "Anterior",
+                        "next": "Siguiente"
+                    }
+                }
+            })
         })
     </script>
 @endsection

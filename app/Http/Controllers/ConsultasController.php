@@ -31,11 +31,7 @@ class ConsultasController extends Controller
      */
     public function index(Request $request)
     {
-        $consultas = $this->byReg->orderBy('created_at', 'desc')->paginate(20);
-
-        if ($request->ajax()) {
-            return response()->json(view('consultas.load', compact('consultas'))->render());
-        }
+        $consultas = $this->byReg->orderBy('created_at', 'desc')->get();
 
         return view('consultas.inbox', compact('consultas'));
     }
@@ -59,7 +55,13 @@ class ConsultasController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, ['consulta' => 'required|string|max:500']);
+        $this->validate(
+            $request,
+            [
+                'consulta' => 'required|string|max:500',
+                'path' => 'image|mimes:jpeg,png,jpg|max:1024'
+            ]
+        );
 
         $informe = $this->informe->find($request->informe_id);
         $data = $request->all();
@@ -74,7 +76,6 @@ class ConsultasController extends Controller
             \Storage::disk('local')->put($data['path'], \File::get($file));
         }
         $data['registro_id'] = $informe->registro_id;
-        $data['estado_consulta_id'] = 1;
         
         $this->consulta->create($data);
 
@@ -122,7 +123,6 @@ class ConsultasController extends Controller
 
         $consulta->respuesta = $request->respuesta;
         $consulta->usuario_asistente_id = \Auth::user()->id;
-        $consulta->estado_consulta_id = 2; //harcodeado estado "respondido"
         $consulta->save();
 
         return redirect()
@@ -149,11 +149,7 @@ class ConsultasController extends Controller
      */
     public function showPendientes(Request $request)
     {
-        $consultas = $this->byReg->where('respuesta', null)->paginate(20);
-
-        if ($request->ajax()) {
-            return response()->json(view('consultas.load', compact('consultas'))->render());
-        }
+        $consultas = $this->byReg->where('respuesta', null)->orderBy('updated_at', 'desc')->get();
 
         return view('consultas.pendientes', compact('consultas'));
     }
@@ -166,11 +162,7 @@ class ConsultasController extends Controller
      */
     public function showRespondidas(Request $request)
     {
-        $consultas = $this->byReg->where('respuesta', '<>', null)->paginate(20);
-
-        if ($request->ajax()) {
-            return response()->json(view('consultas.load', compact('consultas'))->render());
-        }
+        $consultas = $this->byReg->where('respuesta', '<>', null)->orderBy('updated_at', 'desc')->get();
 
         return view('consultas.respondidas', compact('consultas'));
     }

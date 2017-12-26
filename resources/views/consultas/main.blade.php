@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('css')
-    <link href="{{ asset('css/icheck.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/datatables.css') }}" rel="stylesheet">
 @endsection
 
 @section('content-header')
@@ -80,58 +80,29 @@
                     </ul>
                 </div>
             @endif
-            @yield('mailbox')
+            <div class="box box-primary">
+                @yield('mailbox')
+            </div>
         </div>
     </div>
 @endsection
 
 @section('js')
-    <script src="{{ asset('js/icheck.min.js') }}"></script>
+    <script src="{{ asset('js/datatables.js') }}"></script>
     <script>
         $(document).ready(function() {
-            initializeICheck()
-            selectAllCheckbox()
-
-            $(document).on('click', '.custom-pagination a', function (e) { 
-                e.preventDefault()
-                $.ajax({
-                    url: '/consulta',
-                    data:
-                        {
-                            page: $(this).attr('href').split('page=')[1]
-                        }, 
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function (rta) {
-                        $('.consultas').html(rta)
-                        initializeICheck()
-                        selectAllCheckbox()
+            $('#consultas-table').DataTable({
+                "paging":   true,
+                "bLengthChange": false,
+                "ordering": false,
+                "info":     false,
+                "language": {
+                    "paginate": {
+                        "previous": "Anterior",
+                        "next": "Siguiente"
                     }
-                })
+                }
             })
-
-            function initializeICheck() {
-                $('.mailbox-messages input[type="checkbox"]').iCheck({
-                    checkboxClass: 'icheckbox_flat-blue',
-                    radioClass: 'iradio_flat-blue'
-                })
-            }
-
-            function selectAllCheckbox() {
-                $(".checkbox-toggle").click(function () {
-                    let clicks = $(this).data('clicks')
-                    if (clicks) {
-                        //Uncheck all checkboxes
-                        $(".mailbox-messages input[type='checkbox']").iCheck("uncheck")
-                        $(".fa", this).removeClass("fa-check-square-o").addClass('fa-square-o')
-                    } else {
-                        //Check all checkboxes
-                        $(".mailbox-messages input[type='checkbox']").iCheck("check")
-                        $(".fa", this).removeClass("fa-square-o").addClass('fa-check-square-o')
-                    }
-                  $(this).data("clicks", !clicks)
-                })
-            }
         })
     </script>
 @endsection

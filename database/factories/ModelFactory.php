@@ -105,6 +105,6 @@ $factory->define(App\Consulta::class, function (Faker $faker) {
                     break;
             }
         },
-        'usuario_asistente_id' => rand(1, 3)
+        'usuario_asistente_id' => rand(2, 3)
     ];
 });

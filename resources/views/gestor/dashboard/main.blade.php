@@ -53,7 +53,7 @@
                                 Trámites concluidos
                             </a>
                         </li>
-                        <li class="{{ (Request::is('informe'))? 'active' : '' }}">
+                        <li class="">
                             <a href="#">Consultas</a>
                         </li>
                     </ul>
@@ -80,6 +80,7 @@
                 <div class="col-md-12">
                     <br>
                     @include('layouts.partials.success')
+                    @include('layouts.partials.errors')
                 </div>
             </div>
 

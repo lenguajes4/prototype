@@ -34,6 +34,7 @@
                     <div class="col-md-12">
                         <br>
                         @include('layouts.partials.success')
+                        @include('layouts.partials.errors')
                     </div>
                 </div>
 
@@ -58,7 +59,7 @@
     <script src="{{ asset('js/viaAjaxLite.js') }}"></script>
 
     <script type="text/javascript">
-        $(document).ready(function(){
+        $(document).ready(function() {
             $('#modal-app').on('show.bs.modal', function (event) {
                 $.viaAjaxLite.load({
                     target: '#modal-app-content',

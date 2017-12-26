@@ -83,7 +83,13 @@
     <script>
         $(document).ready(function() {
             $("#informe-table").DataTable({
-                'ordering' : false
+                "ordering" : false,
+                "language": {
+                    "paginate": {
+                        "previous": "Anterior",
+                        "next": "Siguiente"
+                    }
+                }
             })
         })
     </script>
