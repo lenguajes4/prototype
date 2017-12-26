@@ -102,7 +102,7 @@
                 <div class="media-left">
                     <a
                         href="#">
-                        <img class="media-object" src="/img/consultas/{{ $consulta->path }}" width="64" height="64">
+                        <img class="media-object" src="/storage/{{ $consulta->path }}" width="64" height="64">
                     </a>
                 </div>
             @endif

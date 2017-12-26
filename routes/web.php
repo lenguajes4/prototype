@@ -97,8 +97,16 @@ Route::group(['middleware' => ['auth']], function () {
      */
     Route::resource('gestor', 'GestoresController');
     Route::get(
-        '/mistramites',
+        '/inicio',
         ['as' => 'gestor.dashboard', 'uses' => 'GestoresController@dashboard']
+    );
+    Route::get(
+        '/tramites',
+        ['as' => 'gestor.tramites', 'uses' => 'GestoresController@tramites']
+    );
+    Route::get(
+        '/concluidos',
+        ['as' => 'gestor.concluidos', 'uses' => 'GestoresController@concluidos']
     );
     Route::get(
         '/ver-informe/{informe}',
@@ -114,15 +122,11 @@ Route::group(['middleware' => ['auth']], function () {
         ['as' => 'consulta.create', 'uses' => 'ConsultasController@create']
     );
     Route::get(
-        'consultas-pendientes',
+        'consultas/pendientes',
         ['as' => 'consulta.showPendientes', 'uses' => 'ConsultasController@showPendientes']
     );
     Route::get(
-        'consultas-respondidas',
+        'consultas/respondidas',
         ['as' => 'consulta.showRespondidas', 'uses' => 'ConsultasController@showRespondidas']
-    );
-    Route::get(
-        'consultas-borrador',
-        ['as' => 'consulta.showBorrador', 'uses' => 'ConsultasController@showBorrador']
     );
 });

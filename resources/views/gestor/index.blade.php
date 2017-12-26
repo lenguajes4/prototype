@@ -109,4 +109,16 @@
     <script src="{{ asset('js/jquery.inputmask.js') }}"></script>
     <script src="{{ asset('js/jquery.inputmask.date.extensions.js') }}"></script>
     <script src="{{ asset('js/datatables.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#gestores-table').DataTable({
+                "language": {
+                    "paginate": {
+                        "previous": "Anterior",
+                        "next": "Siguiente"
+                    }
+                }
+            })
+        })
+    </script>
 @endsection

@@ -22,6 +22,9 @@ class CreateInformesTable extends Migration
             $table->integer('registro_id')->unsigned();
             $table->integer('numero_tramite')->unique()->unsigned();
             $table->text('observaciones')->nullable()->default(null);
+            $table->dateTime('fecha_retiro')->nullable()->default(null);
+            $table->text('nota_retiro')->nullable()->default(null);
+
             $table->timestamps();
         });
 

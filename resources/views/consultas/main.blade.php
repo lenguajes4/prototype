@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('css')
-    <link href="{{ asset('css/icheck.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/datatables.css') }}" rel="stylesheet">
 @endsection
 
 @section('content-header')
@@ -47,7 +47,7 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="{{ (Request::is('consultas-pendientes'))? 'active' : '' }}">
+                        <li class="{{ (Request::is('consultas/pendientes'))? 'active' : '' }}">
                             <a href="{{ route('consulta.showPendientes') }}">
                                 <i class="fa fa-envelope-o"></i> Pendientes
                                 <span class="label label-danger pull-right">
@@ -55,19 +55,11 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="{{ (Request::is('consultas-respondidas'))? 'active' : '' }}">
+                        <li class="{{ (Request::is('consultas/respondidas'))? 'active' : '' }}">
                             <a href="{{ route('consulta.showRespondidas') }}">
                                 <i class="fa fa-paper-plane-o"></i> Respondidas
                                 <span class="label label-success pull-right">
                                     {{ \Auth::user()->registro->consultas_respondidas_count }}
-                                </span>
-                            </a>
-                        </li>
-                        <li class="{{ (Request::is('consultas-borrador'))? 'active' : '' }}">
-                            <a href="{{ route('consulta.showBorrador') }}">
-                                <i class="fa fa-file-text-o"></i> Borradores
-                                <span class="label label-warning pull-right">
-                                    {{ \Auth::user()->registro->consultas_borrador_count }}
                                 </span>
                             </a>
                         </li>
@@ -76,58 +68,41 @@
             </div>
         </div>
         <div class="col-md-9">
-            @yield('mailbox')
+            @if ($errors->any())
+                <div class="alert alert-warning alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            <div class="box box-primary">
+                @yield('mailbox')
+            </div>
         </div>
     </div>
 @endsection
 
 @section('js')
-    <script src="{{ asset('js/icheck.min.js') }}"></script>
+    <script src="{{ asset('js/datatables.js') }}"></script>
     <script>
         $(document).ready(function() {
-            initializeICheck()
-            selectAllCheckbox()
-
-            $(document).on('click', '.custom-pagination a', function (e) { 
-                e.preventDefault()
-                $.ajax({
-                    url: '/consulta',
-                    data:
-                        {
-                            page: $(this).attr('href').split('page=')[1]
-                        }, 
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function (rta) {
-                        $('.consultas').html(rta)
-                        initializeICheck()
-                        selectAllCheckbox()
+            $('#consultas-table').DataTable({
+                "paging":   true,
+                "bLengthChange": false,
+                "ordering": false,
+                "info":     false,
+                "language": {
+                    "paginate": {
+                        "previous": "Anterior",
+                        "next": "Siguiente"
                     }
-                })
+                }
             })
-
-            function initializeICheck() {
-                $('.mailbox-messages input[type="checkbox"]').iCheck({
-                    checkboxClass: 'icheckbox_flat-blue',
-                    radioClass: 'iradio_flat-blue'
-                })
-            }
-
-            function selectAllCheckbox() {
-                $(".checkbox-toggle").click(function () {
-                    let clicks = $(this).data('clicks')
-                    if (clicks) {
-                        //Uncheck all checkboxes
-                        $(".mailbox-messages input[type='checkbox']").iCheck("uncheck")
-                        $(".fa", this).removeClass("fa-check-square-o").addClass('fa-square-o')
-                    } else {
-                        //Check all checkboxes
-                        $(".mailbox-messages input[type='checkbox']").iCheck("check")
-                        $(".fa", this).removeClass("fa-square-o").addClass('fa-check-square-o')
-                    }
-                  $(this).data("clicks", !clicks)
-                })
-            }
         })
     </script>
 @endsection

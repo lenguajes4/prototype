@@ -17,6 +17,9 @@ class InformeRepository
             'usuario_id' => 'required|integer',
             'registro_id' => 'required|integer'
         ],
+        'update_observaciones' => [
+            'observaciones' => 'required|string'
+        ],
         'update_baja' => [
             'provincia_baja_id' => 'required|integer',
             'municipio_baja' => 'required|string',
@@ -64,6 +67,6 @@ class InformeRepository
 
     public function get()
     {
-        return $this->informe->get();
+        return $this->informe->orderBy('created_at', 'desc')->get();
     }
 }

@@ -7,6 +7,7 @@
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style-gestor.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/datatables.css') }}" rel="stylesheet">
 
     @yield('css')
 
@@ -37,12 +38,22 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="{{ (Request::is('mistramites'))? 'active' : '' }}">
+                        <li class="{{ (Request::is('inicio'))? 'active' : '' }}">
                             <a href="{{ route('gestor.dashboard') }}">
-                                Informes</span>
+                                Inicio
                             </a>
                         </li>
-                        <li class="{{ (Request::is('informe'))? 'active' : '' }}">
+                        <li class="{{ (Request::is('tramites'))? 'active' : '' }}">
+                            <a href="{{ route('gestor.tramites') }}">
+                                Nuevos informes
+                            </a>
+                        </li>
+                        <li class="{{ (Request::is('concluidos'))? 'active' : '' }}">
+                            <a href="{{ route('gestor.concluidos') }}">
+                                Trámites concluidos
+                            </a>
+                        </li>
+                        <li class="">
                             <a href="#">Consultas</a>
                         </li>
                     </ul>
@@ -69,9 +80,12 @@
                 <div class="col-md-12">
                     <br>
                     @include('layouts.partials.success')
+                    @include('layouts.partials.errors')
                 </div>
             </div>
+
             @yield('content')
+
         </div>
     </section>
 
@@ -91,8 +105,13 @@
     <script src="{{ asset('js/jquery-2.2.3.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/viaAjaxLite.js') }}"></script>
+    <script src="{{ asset('js/datatables.js') }}"></script>
+
     <script type="text/javascript">
         $(document).ready(function(){
+
+            $("#informe-table").DataTable()
+
             $('#modal-app').on('show.bs.modal', function (event) {
                 $.viaAjaxLite.load({
                     target: '#modal-app-content',

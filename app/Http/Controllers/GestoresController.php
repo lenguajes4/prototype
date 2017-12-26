@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class GestoresController extends Controller
 {
@@ -21,6 +22,8 @@ class GestoresController extends Controller
     public function index()
     {
         $gestores = $this->user->where('rol_id', 4)->get();
+        //harcodeado rol 4 de gestor
+
         return view('gestor.index', compact('gestores'));
     }
 
@@ -130,12 +133,33 @@ class GestoresController extends Controller
      */
     public function dashboard()
     {
-        $gestor = \Auth::user();
-        $informes = \App\Informe::where('usuario_id', $gestor->id)
-            ->where('estado_tramite_id', 2)//harcodeado estado publicado
-            ->get();
+        return view('gestor.dashboard.index');
+    }
 
-        return view('gestor.dashboard.index', compact('informes'));
+    /**
+     * Muestra dashboard para gestores con trámites publicados.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function tramites()
+    {
+        $informes = Auth::user()->informe->where('estado_tramite_id', 2);
+        //@TODO harcodeado estado publicado
+
+        return view('gestor.dashboard.tramites', compact('informes'));
+    }
+
+    /**
+     * Muestra dashboard para gestores con trámites publicados.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function concluidos()
+    {
+        $informes = Auth::user()->informe->where('estado_tramite_id', 3);
+        //@TODO harcodeado estado concluido
+
+        return view('gestor.dashboard.concluidos', compact('informes'));
     }
 
     /**

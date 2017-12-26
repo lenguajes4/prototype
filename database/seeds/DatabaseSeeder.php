@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call('EstadosTramiteTableSeeder');
         $this->call('TiposVehiculoTableSeeder');
         $this->call('JurisdiccionesTableSeeder');
-        $this->call('EstadosConsultaTableSeeder');
+        //$this->call('EstadosConsultaTableSeeder');
 
         $this->call('FactoriesTableSeeder');
 

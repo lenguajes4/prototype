@@ -9,6 +9,8 @@
         ]
     )
 }}
+    {{ Form::hidden('estado_consulta_id', 1) }}
+    
     <div class="panel panel-default">
         <div class="panel-body">
             Si tiene alguna consulta sobre el trámite
@@ -36,7 +38,7 @@
                 }}
             </div>
 
-            {{ Form::file('path', ['id' => 'path']) }}
+            {{ Form::file('path', ['id' => 'path', 'accept' => '.jpg, .jpeg, .png']) }}
             <p class="help-block">
                 <button class="btn btn-default btn-xs" type="button" id="clear">Limpiar archivo</button>
             </p>

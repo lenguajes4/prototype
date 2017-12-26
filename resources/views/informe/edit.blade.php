@@ -47,22 +47,24 @@
                         </li>
                     </ul>
                 </div>
-                <div class="box-footer no-padding">
-                    <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                        <a
-                            href="#modal-app"
-                            class="btn btn-danger"
-                            data-toggle="modal"
-                            data-url="{{ route('informe.showDeleteForm', $informe->id) }}">
-                            <i class="fa fa-trash"></i> Eliminar
-                        </a>
-                        <a
-                            href="{{ route('informe.publicar', $informe->id) }}"
-                            class="btn btn-primary">
-                            <i class="fa fa-arrow-right"></i> Publicar
-                        </a>
+                @if ($informe->estado_tramite_id == 1)
+                    <div class="box-footer no-padding">
+                        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                            <a
+                                href="#modal-app"
+                                class="btn btn-danger"
+                                data-toggle="modal"
+                                data-url="{{ route('informe.showDeleteForm', $informe->id) }}">
+                                <i class="fa fa-trash"></i> Eliminar
+                            </a>
+                            <a
+                                href="{{ route('informe.publicar', $informe->id) }}"
+                                class="btn btn-primary">
+                                <i class="fa fa-arrow-right"></i> Publicar
+                            </a>
+                        </div>
                     </div>
-                </div>
+                @endif
             </div>
             @include('conceptos.show')
             
@@ -83,35 +85,7 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    {{
-                        Form::model(
-                            $informe,
-                            [
-                                'route' => ['informe.update', $informe->id],
-                                'method' => 'put'
-                            ]
-                        )
-                    }}
-                        <div class="form-group">
-                            {{
-                                Form::textarea(
-                                    'observaciones',
-                                    null,
-                                    [
-                                        'class' => 'form-control',
-                                        'rows' => 4,
-                                        'placeholder' => 'Redactar observaciones...',
-                                        'style' => 'resize: none;'
-                                    ]
-                                )
-                            }}
-                        </div>
-                        <button
-                            type="submit"
-                            class="btn btn-default btn-xs pull-right">
-                            <i class="fa fa-floppy-o"></i> Guardar
-                        </button>
-                    {{ Form::close() }}
+                    @include('informe.observaciones-form')
                 </div>
             </div>
 

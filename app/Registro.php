@@ -15,16 +15,11 @@ class Registro extends Model
 
     public function getConsultasPendientesCountAttribute()
     {
-        return $this->consultas->where('estado_consulta_id', 1)->count();
+        return $this->consultas->where('respuesta', null)->count();
     }
 
     public function getConsultasRespondidasCountAttribute()
     {
-        return $this->consultas->where('estado_consulta_id', 2)->count();
-    }
-
-    public function getConsultasBorradorCountAttribute()
-    {
-        return $this->consultas->where('estado_consulta_id', 3)->count();
+        return $this->consultas->where('respuesta', '<>', null)->count();
     }
 }
