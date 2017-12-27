@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Informe;
 use Illuminate\Support\Facades\Auth;
 
 class GestoresController extends Controller
@@ -21,9 +22,14 @@ class GestoresController extends Controller
      */
     public function index()
     {
-        $gestores = $this->user->where('rol_id', 4)->get();
-        //harcodeado rol 4 de gestor
+        $registro = Auth::user()->registro_id;
 
+        $gestores = $this->user->withRole('manager')->get();
+        
+        $gestores->each(function ($item, $key) use ($registro) {
+            $item['informes_count'] = $item->informe->where('registro_id', $registro)->count();
+        });
+        
         return view('gestor.index', compact('gestores'));
     }
 
@@ -53,10 +59,10 @@ class GestoresController extends Controller
         $data['nickname'] = substr($request->nombre, 0, 1).$request->apellido.substr($request->dni, -3, 3);
         $data['password'] = bcrypt('123456');
         $data['registro_id'] = 1;
-        $data['rol_id'] = 4;
         $data['image_path'] = 'img/user.png';
 
         $gestor = $this->user->create($data);
+        $gestor->roles()->attach(4);//harcodeado id de gestor
         
         return redirect()
             ->route('gestor.index')
@@ -170,7 +176,7 @@ class GestoresController extends Controller
      */
     public function showInforme($id)
     {
-        $informe = \App\Informe::find($id);
+        $informe = Informe::find($id);
         $conceptos = $informe->conceptos;
         $multas = $informe->vehiculo->multas->sortBy('jurisdiccion_id');
         $patentes = $informe->vehiculo->patentes->sortBy('jurisdiccion_id')->sortBy('year');

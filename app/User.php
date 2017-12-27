@@ -4,10 +4,12 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use EntrustUserTrait;
 
     protected $table = 'usuarios';
 
@@ -18,7 +20,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'nombre', 'apellido', 'nickname', 'dni', 'matricula', 'email', 'password', 'telefono',
-        'image_path', 'registro_id', 'rol_id', 'is_admin'
+        'image_path', 'registro_id', 'is_admin'
     ];
 
     /**
@@ -56,11 +58,6 @@ class User extends Authenticatable
         return $this->apellido.', '.$this->nombre;
     }
 
-    public function rol()
-    {
-        return $this->belongsTo(\App\Rol::class, 'rol_id');
-    }
-
     public function informe()
     {
         return $this->hasMany(\App\Informe::class, 'usuario_id');
@@ -69,5 +66,10 @@ class User extends Authenticatable
     public function registro()
     {
         return $this->belongsTo(\App\Registro::class, 'registro_id');
+    }
+
+    public function role()
+    {
+        return $this->belongsToMany(\App\Role::class, 'role_user', 'user_id', 'role_id');
     }
 }

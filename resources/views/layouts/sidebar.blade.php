@@ -5,7 +5,9 @@
         </div>
         <div class="pull-left info">
             <p>{{ Auth::user()->nickname }}</p>
-            <a href="#"><i class="fa fa-circle text-success"></i> {{ Auth::user()->rol->nombre }}</a>
+            <a href="#">
+                <i class="fa fa-circle text-success"></i> {{ Auth::user()->role->first()->display_name }}
+            </a>
         </div>
     </div>
     <ul class="sidebar-menu">

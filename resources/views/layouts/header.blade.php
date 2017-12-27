@@ -15,7 +15,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-envelope-o"></i>
                         <span class="label label-success">
-                            {{ \Auth::user()->registro->consultas_pendientes_count }}
+                            {{ Auth::user()->registro->consultas_pendientes_count }}
                         </span>
                     </a>
                     <ul class="dropdown-menu">
@@ -25,7 +25,7 @@
                                 <li>
                                     <a href="{{ route('consulta.showPendientes') }}">
                                         <i class="fa fa-envelope-o text-aqua"></i>
-                                        {{ \Auth::user()->registro->consultas_pendientes_count }}
+                                        {{ Auth::user()->registro->consultas_pendientes_count }}
                                         consultas esperando respuesta.
                                     </a>
                                 </li>
@@ -118,7 +118,7 @@
                         </li>
                     </ul>
                 </li>
-                @if (Auth::user()->rol->codigo == 'ADM')
+                @if (Auth::user()->hasRole('admin'))
                     <li>
                         <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
                     </li>

@@ -1,4 +1,4 @@
-{{ Form::model($informe,['route' => ['informe.update', $informe->id], 'method' => 'put']) }}
+{{ Form::model($informe, ['route' => ['informe.update', $informe->id], 'method' => 'put']) }}
     <div class="form-group">
         {{
             Form::textarea(

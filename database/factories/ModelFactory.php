@@ -17,18 +17,20 @@ $factory->define(App\User::class, function () {
     static $password;
 
     $faker = \Faker\Factory::create('es_AR');
+    $dni = rand(12000000, 42000000);
+    $matricula = 'MP-'.$dni.'-'.rand(2015,2018);
 
     return [
         'nombre' => $faker->firstName,
         'apellido' => $faker->lastName,
         'nickname' => $faker->userName,
-        'dni' => rand(12000000, 42000000),
+        'dni' => $dni,
+        'matricula' => $matricula,
         'email' => $faker->unique()->safeEmail,
         'telefono' => '('.rand(386, 388).') '.rand(2, 7).'-'.rand(100000, 999999),
         'password' => $password ?: $password = bcrypt('123456'),
         'remember_token' => str_random(10),
         'registro_id' => 1,
-        'rol_id' => 4,
         'image_path' => 'user.png'
     ];
 });

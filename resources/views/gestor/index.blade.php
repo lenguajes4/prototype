@@ -59,7 +59,7 @@
                                 <th style="width: 7px;"></th>
                                 <th style="width: 7px;"></th>
                                 <th>Apellido y Nombre</th>
-                                <th>N° de trámites</th>
+                                <th>N° de trámites en este registro</th>
                                 <th>Teléfono</th>
                             </tr>
                         </thead>
@@ -93,7 +93,7 @@
                                             {{ $gestor->nombre_completo }}
                                         </a>
                                     </td>
-                                    <td>{{ $gestor->informe->count() }}</td>
+                                    <td>{{ $gestor->informes_count }}</td>
                                     <td>{{ $gestor->telefono }}</td>
                                 </tr>
                             @endforeach

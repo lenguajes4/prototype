@@ -96,28 +96,10 @@
 
         </div>
     </div>
-
-    <!-- Modal para conceptos | multas | patentes-->
-    <div class="modal fade" id="modal-app" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" id="modal-app-content"></div>
-        </div>
-    </div>
     
 @endsection
 
 @section('js')
-    <script src="{{ asset('js/viaAjaxLite.js') }}"></script>
     <script src="{{ asset('js/jquery.inputmask.js') }}"></script>
     <script src="{{ asset('js/jquery.inputmask.date.extensions.js') }}"></script>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('#modal-app').on('show.bs.modal', function (event) {
-                $.viaAjaxLite.load({
-                    target: '#modal-app-content',
-                    url: $(event.relatedTarget).data('url')
-                })
-            })
-        })
-    </script>
 @endsection

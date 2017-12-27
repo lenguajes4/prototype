@@ -43,7 +43,7 @@
                             <a href="{{ route('consulta.index') }}">
                                 <i class="fa fa-inbox"></i> Todas
                                 <span class="label label-primary pull-right">
-                                    {{ \Auth::user()->registro->consultas->count() }}
+                                    {{ Auth::user()->registro->consultas->count() }}
                                 </span>
                             </a>
                         </li>
@@ -51,7 +51,7 @@
                             <a href="{{ route('consulta.showPendientes') }}">
                                 <i class="fa fa-envelope-o"></i> Pendientes
                                 <span class="label label-danger pull-right">
-                                    {{ \Auth::user()->registro->consultas_pendientes_count }}
+                                    {{ Auth::user()->registro->consultas_pendientes_count }}
                                 </span>
                             </a>
                         </li>
@@ -59,7 +59,7 @@
                             <a href="{{ route('consulta.showRespondidas') }}">
                                 <i class="fa fa-paper-plane-o"></i> Respondidas
                                 <span class="label label-success pull-right">
-                                    {{ \Auth::user()->registro->consultas_respondidas_count }}
+                                    {{ Auth::user()->registro->consultas_respondidas_count }}
                                 </span>
                             </a>
                         </li>

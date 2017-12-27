@@ -25,6 +25,9 @@ class InformeRepository
             'municipio_baja' => 'required|string',
             'fecha_baja' => 'required|date'
         ],
+        'conclude' => [
+            'fecha_retiro' => 'required|date_format:d/m/Y'
+        ],
     ];
 
     public function __construct(Informe $informe)

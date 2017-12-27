@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Consulta;
 use App\Informe;
+use Illuminate\Support\Facades\Auth;
 
 class ConsultasController extends Controller
 {
@@ -19,7 +20,7 @@ class ConsultasController extends Controller
         $this->informe = $informe;
 
         $this->middleware(function ($request, $next) {
-            $this->byReg = $this->consulta->where('registro_id', \Auth::user()->registro_id);
+            $this->byReg = $this->consulta->where('registro_id', Auth::user()->registro_id);
             return $next($request);
         });
     }
@@ -44,6 +45,7 @@ class ConsultasController extends Controller
     public function create($id)
     {
         $informe = $this->informe->find($id);
+        
         return view('gestor.dashboard.consultar', compact('informe'));
     }
 
@@ -122,7 +124,7 @@ class ConsultasController extends Controller
         $consulta = $this->consulta->find($id);
 
         $consulta->respuesta = $request->respuesta;
-        $consulta->usuario_asistente_id = \Auth::user()->id;
+        $consulta->usuario_asistente_id = Auth::user()->id;
         $consulta->save();
 
         return redirect()
