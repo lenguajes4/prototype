@@ -84,6 +84,14 @@
                                 class="btn btn-primary">
                                 <i class="fa fa-arrow-right"></i> Publicar
                             </a>
+                        @else
+                            <a
+                                href="#modal-app"
+                                class="btn btn-primary"
+                                data-toggle="modal"
+                                data-url="{{ route('informe.showConcludeForm', $informe->id) }}">
+                                <i class="fa fa-arrow-right"></i> Concluir
+                            </a>
                         @endif
                     </div>
                 </div>
@@ -177,4 +185,9 @@
         @endif
     </div>
 </div>
+@endsection
+
+@section('js')
+    <script src="{{ asset('js/jquery.inputmask.js') }}"></script>
+    <script src="{{ asset('js/jquery.inputmask.date.extensions.js') }}"></script>
 @endsection

@@ -7,6 +7,7 @@ use Profip\Repositories\InformeRepository as Informe;
 use App\TipoTramite;
 use App\User;
 use Carbon\Carbon;
+use Auth;
 
 class InformesController extends Controller
 {
@@ -32,8 +33,7 @@ class InformesController extends Controller
      */
     public function index()
     {
-        $informes = $this->informe->get();
-        
+        $informes = Auth::user()->registro->informes->sortByDesc('created_at');
         return view('informe.index', compact('informes'));
     }
 
@@ -45,8 +45,8 @@ class InformesController extends Controller
     public function create()
     {
         $gestores = [];
-        $this->usuario->where('rol_id', 4)->get()->each(function ($item, $key) use (&$gestores) {
-            $gestores[$item->id] = $item->apellido.', '.$item->nombre;
+        $this->usuario->withRole('manager')->get()->each(function ($item, $key) use (&$gestores) {
+            $gestores[$item->id] = $item->nombre_completo;
         });
 
         $tipos = $this->tipo->pluck('nombre', 'id')->toArray();
@@ -240,6 +240,40 @@ class InformesController extends Controller
         return redirect()
             ->route('informe.edit', $request->informe_id)
             ->with('success', 'Solicitud de baja eliminada correctamente.');
+    }
+
+    /**
+     * Carga formulario para registrar retiro de documentación.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showConcludeForm($id)
+    {
+        $informe = $this->informe->find($id);
+
+        return view('informe.conclude', compact('informe'));
+    }
+
+    /**
+     * Pasa el informe a estado concluido.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function conclude(Request $request, $id)
+    {
+        $this->validate($request, $this->informe->rules['conclude']);
+        //@TODO faltaría validar que la fecha ingresada sea mayor a la fecha de creacion
+
+        $informe = $this->informe->find($id);
+        $informe->fill($request->all());
+        $informe->estado_tramite_id = 3;
+        $informe->save();
+
+        return redirect()
+            ->route('informe.show', $id)
+            ->with('success', 'Se registró el retiro de documentación.');
     }
 
     /**

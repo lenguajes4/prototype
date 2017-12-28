@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -23,10 +24,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if (\Auth::user()->rol_id == 4) {
+        $user = Auth::user();
+
+        if ($user->hasRole('manager')) {
             return redirect()->route('gestor.dashboard');
         }
 
-        return view('dashboard');
+        $registro = $user->registro;
+        $informes = $registro->informes->sortByDesc('updated_at')->take(5);
+        $consultas = $registro->consultas->sortByDesc('updated_at')->take(5);
+
+        return view('dashboard', compact('user', 'registro', 'informes', 'consultas'));
     }
 }

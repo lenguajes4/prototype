@@ -169,6 +169,7 @@ return [
          */
         Collective\Html\HtmlServiceProvider::class,
         Jenssegers\Date\DateServiceProvider::class,
+        Zizaco\Entrust\EntrustServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -230,6 +231,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Date' => Jenssegers\Date\Date::class,
+        'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
 
     ],
 

@@ -8,7 +8,7 @@
     <section class="content-header">
         <h1>
             Informes
-            <small>Listado de informes</small>
+            <small>Listado de informes de trámites pertenecientes a este registro seccional</small>
         </h1>
         <ol class="breadcrumb">
             <li>
@@ -22,60 +22,58 @@
 @endsection
 
 @section('content')
-    <div class="row">
-        <div class="col-xs-12">
-            <a href="{{ route('informe.create') }}" class="btn btn-primary btn-flat">
-                <i class="fa fa-external-link" aria-hidden="true"></i> Nuevo
-            </a>
-        </div>
+<div class="row">
+    <div class="col-xs-12">
+        <a href="{{ route('informe.create') }}" class="btn btn-primary btn-flat">
+            <i class="fa fa-external-link" aria-hidden="true"></i> Nuevo
+        </a>
     </div>
-    <br>
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box">
-                <div class="box-header">
-                    <h3 class="box-title">Informes de trámites</h3>
-                </div>
-                <div class="box-body">
-                    <table id="informe-table" class="table table-bordered table-striped">
-                        <thead>
+</div>
+<br>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-primary">
+            <div class="box-body">
+                <table id="informe-table" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>N° de trámite</th>
+                            <th>Dominio</th>
+                            <th>Trámite</th>
+                            <th>Estado</th>
+                            <th>Gestor</th>
+                            <th>Fecha de carga</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($informes as $informe)
                             <tr>
-                                <th></th>
-                                <th>N° de trámite</th>
-                                <th>Dominio</th>
-                                <th>Trámite</th>
-                                <th>Estado</th>
-                                <th>Gestor</th>
+                                <td>
+                                    <a
+                                        href="{{ route('informe.show', $informe->id) }}"
+                                        title="Ver">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{{ route('informe.show', $informe->id) }}">
+                                        {{ $informe->numero_tramite }}
+                                    </a>
+                                </td>
+                                <td>{{ $informe->vehiculo->dominio }}</td>
+                                <td>{{ $informe->tramite->nombre }}</td>
+                                <td>{{ $informe->estado->nombre }}</td>
+                                <td>{{ $informe->gestor->nombre_completo }}</td>
+                                <td>{{ $informe->created_at->diffForHumans() }}</td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($informes as $informe)
-                                <tr>
-                                    <td>
-                                        <a
-                                            href="{{ route('informe.show', $informe->id) }}"
-                                            title="Ver">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('informe.show', $informe->id) }}">
-                                            {{ $informe->numero_tramite }}
-                                        </a>
-                                    </td>
-                                    <td>{{ $informe->vehiculo->dominio }}</td>
-                                    <td>{{ $informe->tramite->nombre }}</td>
-                                    <td>{{ $informe->estado->nombre }}</td>
-                                    <td>{{ $informe->gestor->apellido.', '.$informe->gestor->nombre }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-
+</div>
 @endsection
 
 @section('js')

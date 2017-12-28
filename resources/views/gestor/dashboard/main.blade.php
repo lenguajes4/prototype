@@ -17,7 +17,7 @@
         <img src="{{ url('img/dnrpa-logo.png') }}">
         <img src="{{ url('img/justicia-logo.png') }}" class="justicia-logo">
     </header>
-    <nav>
+    <nav class="custom-nav-title">
         Sistema de Consulta de Estado de Trámites
     </nav>
     <section>
@@ -74,15 +74,10 @@
                 </div>
             </div>
         </nav>
-
         <div class="main-content">
-            <div class="row" >
-                <div class="col-md-12">
-                    <br>
-                    @include('layouts.partials.success')
-                    @include('layouts.partials.errors')
-                </div>
-            </div>
+            <h1>hello</h1>
+            @include('layouts.partials.success')
+            @include('layouts.partials.errors')
 
             @yield('content')
 

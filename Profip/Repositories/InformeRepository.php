@@ -25,6 +25,9 @@ class InformeRepository
             'municipio_baja' => 'required|string',
             'fecha_baja' => 'required|date'
         ],
+        'conclude' => [
+            'fecha_retiro' => 'required|date_format:d/m/Y'
+        ],
     ];
 
     public function __construct(Informe $informe)
@@ -63,10 +66,5 @@ class InformeRepository
     public function find($id)
     {
         return $this->informe->find($id);
-    }
-
-    public function get()
-    {
-        return $this->informe->orderBy('created_at', 'desc')->get();
     }
 }

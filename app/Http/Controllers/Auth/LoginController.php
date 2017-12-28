@@ -45,10 +45,6 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        if ($user->rol->codigo === 'GES') {
-            return redirect()->route('gestor.dashboard');
-        }
-
         return redirect('/');
     }
 }

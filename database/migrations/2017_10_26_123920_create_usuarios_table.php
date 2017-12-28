@@ -24,7 +24,6 @@ class CreateUsuariosTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->integer('registro_id')->unsigned();
-            $table->integer('rol_id')->unsigned();
             $table->string('image_path', 50)->nullable()->default(null);
             $table->boolean('is_admin')->default(false);
             $table->rememberToken();
@@ -33,7 +32,6 @@ class CreateUsuariosTable extends Migration
 
         Schema::table('usuarios', function($table) {
             $table->foreign('registro_id')->references('id')->on('registros');
-            $table->foreign('rol_id')->references('id')->on('roles');
         });
     }
 

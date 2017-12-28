@@ -8,6 +8,11 @@ class Registro extends Model
 {
     protected $table = 'registros';
 
+    public function informes()
+    {
+        return $this->hasMany(\App\Informe::class, 'registro_id');
+    }
+
     public function consultas()
     {
         return $this->hasMany(\App\Consulta::class, 'registro_id');
