@@ -67,9 +67,4 @@ class InformeRepository
     {
         return $this->informe->find($id);
     }
-
-    public function get()
-    {
-        return $this->informe->orderBy('created_at', 'desc')->get();
-    }
 }

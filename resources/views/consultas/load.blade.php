@@ -8,7 +8,7 @@
         <th></th>
     </thead>
     <tbody>
-        @forelse ($consultas as $consulta)
+        @foreach ($consultas as $consulta)
             <tr>
                 <td>
                     <a
@@ -40,8 +40,6 @@
                     {{ $consulta->created_at->diffForHumans() }}
                 </td>
             </tr>
-        @empty
-            sin consultas
-        @endforelse
+        @endforeach
     </tbody>
 </table>

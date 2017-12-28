@@ -46,63 +46,54 @@
         </div>
     </div>
     <br>
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box">
-                <div class="box-header">
-                    <h3 class="box-title">Informes de trámites</h3>
-                </div>
-                <div class="box-body">
-                    <table id="gestores-table" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th style="width: 7px;"></th>
-                                <th style="width: 7px;"></th>
-                                <th>Apellido y Nombre</th>
-                                <th>N° de trámites en este registro</th>
-                                <th>Teléfono</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($gestores as $gestor)
-                                <tr>
-                                    <td>
-                                        <a
-                                            data-toggle="modal"
-                                            data-url="{{ route('gestor.show', $gestor->id) }}"
-                                            title="Ver gestor"
-                                            href="#modal-app">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a
-                                            data-toggle="modal"
-                                            data-url="{{ route('gestor.edit', $gestor->id) }}"
-                                            title="Click para editar"
-                                            href="#modal-app">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a
-                                            data-toggle="modal"
-                                            data-url="{{ route('gestor.show', $gestor->id) }}"
-                                            title="Ver gestor"
-                                            href="#modal-app">
-                                            {{ $gestor->nombre_completo }}
-                                        </a>
-                                    </td>
-                                    <td>{{ $gestor->informes_count }}</td>
-                                    <td>{{ $gestor->telefono }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+    <table id="gestores-table" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th style="width: 7px;"></th>
+                <th style="width: 7px;"></th>
+                <th>Apellido y Nombre</th>
+                <th>N° de trámites en este registro</th>
+                <th>Teléfono</th>
+                <th>Fecha de alta</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($gestores as $gestor)
+                <tr>
+                    <td>
+                        <a
+                            data-toggle="modal"
+                            data-url="{{ route('gestor.show', $gestor->id) }}"
+                            title="Ver gestor"
+                            href="#modal-app">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a
+                            data-toggle="modal"
+                            data-url="{{ route('gestor.edit', $gestor->id) }}"
+                            title="Click para editar"
+                            href="#modal-app">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a
+                            data-toggle="modal"
+                            data-url="{{ route('gestor.show', $gestor->id) }}"
+                            title="Ver gestor"
+                            href="#modal-app">
+                            {{ $gestor->nombre_completo }}
+                        </a>
+                    </td>
+                    <td>{{ $gestor->informes_count }}</td>
+                    <td>{{ $gestor->telefono }}</td>
+                    <td>{{ $gestor->created_at->format('d/m/Y') }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 @endsection
 
 @section('js')

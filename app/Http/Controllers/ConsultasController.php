@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Consulta;
 use App\Informe;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 
 class ConsultasController extends Controller
 {

@@ -135,5 +135,9 @@ Route::group(['middleware' => ['auth']], function () {
             'consulta/{informe}/crear',
             ['as' => 'consulta.create', 'uses' => 'ConsultasController@create']
         );
+        Route::post(
+            'consulta',
+            ['as' => 'consulta.store', 'uses' => 'ConsultasController@store']
+        );
     });
 });

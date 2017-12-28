@@ -7,6 +7,7 @@ use Profip\Repositories\InformeRepository as Informe;
 use App\TipoTramite;
 use App\User;
 use Carbon\Carbon;
+use Auth;
 
 class InformesController extends Controller
 {
@@ -32,8 +33,7 @@ class InformesController extends Controller
      */
     public function index()
     {
-        $informes = $this->informe->get();
-        
+        $informes = Auth::user()->registro->informes->sortByDesc('created_at');
         return view('informe.index', compact('informes'));
     }
 
