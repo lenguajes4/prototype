@@ -1,4 +1,20 @@
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic);
+/*@font-face {
+    font-family: 'Source Sans Pro';
+    src: url(../fonts/sourcesanspro/SourceSansPro-Regular.ttf),
+        url(../fonts/sourcesanspro/SourceSansPro-Black.ttf),
+        url(../fonts/sourcesanspro/SourceSansPro-BlackItalic.ttf),
+        url(../fonts/sourcesanspro/SourceSansPro-Bold.ttf),
+        url(../fonts/sourcesanspro/SourceSansPro-BoldItalic.ttf),
+        url(../fonts/sourcesanspro/SourceSansPro-ExtraLight.ttf),
+        url(../fonts/sourcesanspro/SourceSansPro-ExtraLightItalic.ttf),
+        url(../fonts/sourcesanspro/SourceSansPro-Italic.ttf),
+        url(../fonts/sourcesanspro/SourceSansPro-Light.ttf),
+        url(../fonts/sourcesanspro/SourceSansPro-LightItalic.ttf),
+        url(../fonts/sourcesanspro/SourceSansPro-Regular.ttf),
+        url(../fonts/sourcesanspro/SourceSansPro-SemiBold.ttf),
+        url(../fonts/sourcesanspro/SourceSansPro-SemiBoldItalic.ttf);
+}*/
 
 html,
 body {
