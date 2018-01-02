@@ -6,8 +6,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     {{-- <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script> --}}
     <link href="{{ asset('css/login-style.css') }}" rel="stylesheet">
-    {{-- <link href="//fonts.googleapis.com/css?family=Advent+Pro:100,200,300,400,500,600,700" rel="stylesheet">
-    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'> --}}
 </head>
 <body>
     <div class="main-agileits">

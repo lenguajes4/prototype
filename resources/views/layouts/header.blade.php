@@ -118,7 +118,7 @@
                         </li>
                     </ul>
                 </li>
-                @if (Auth::user()->hasRole('admin'))
+                @if (Auth::user()->hasRole('boss'))
                     <li>
                         <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
                     </li>

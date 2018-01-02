@@ -21,6 +21,7 @@
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
         @include('layouts.header')
+        @include('layouts.admin-sidebar')
 
         <aside class="main-sidebar">
             @include('layouts.sidebar')
