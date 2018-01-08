@@ -18,9 +18,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@index');
 
     /*
-     * Por rol de admin o empleado
+     * Por rol de admin | encargado | empleado
      */
-    Route::group(['middleware' => ['role:admin|employee']], function() {
+    Route::group(['middleware' => ['role:admin|boss|employee']], function() {
         /* Informes */
         Route::resource('informe', 'InformesController');
         Route::get(
