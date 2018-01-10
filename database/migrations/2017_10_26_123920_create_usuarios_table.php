@@ -15,13 +15,13 @@ class CreateUsuariosTable extends Migration
     {
         Schema::create('usuarios', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nombre', 50);
-            $table->string('apellido', 50);
-            $table->string('nickname', 50)->unique();
+            $table->string('nombre', 20);
+            $table->string('apellido', 20);
+            $table->string('nickname', 15)->unique();
             $table->integer('dni')->unique();
-            $table->string('matricula', 50)->nullable()->default(null);
-            $table->string('telefono', 50)->nullable()->default(null);
-            $table->string('email')->unique();
+            $table->string('matricula', 20)->nullable()->default(null);
+            $table->string('telefono', 15)->nullable()->default(null);
+            $table->string('email', 50)->unique();
             $table->string('password');
             $table->integer('registro_id')->unsigned();
             $table->string('image_path', 50)->nullable()->default(null);
